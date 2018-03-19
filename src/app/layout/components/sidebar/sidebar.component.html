@@ -1,0 +1,13 @@
+<nav class="sidebar" [ngClass]="{sidebarPushRight: isActive}">
+    <div class="list-group">
+        <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-dashboard"></i>&nbsp;{{ 'Dashboard' | translate }}
+        </a>
+        <a [routerLink]="['/bs-element']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-desktop"></i>&nbsp;{{ 'Bootstrap Element' | translate }}
+        </a>
+        <a [routerLink]="['/blank-page']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-file-o"></i>&nbsp;{{ 'Blank Page' | translate }}
+        </a>
+    </div>
+</nav>
