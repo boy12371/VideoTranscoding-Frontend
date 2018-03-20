@@ -1,4 +1,4 @@
-$topnav-background-color: #0A1612;
+$topnav-background-color: #1A2930;
 .sidebar {
     border-radius: 0;
     position: fixed;
@@ -33,7 +33,7 @@ $topnav-background-color: #0A1612;
         }
         a:hover {
             background: darken($topnav-background-color, 5%);
-            color: #fff;
+            color: #F7CE3E;
         }
         a.router-link-active {
             background: darken($topnav-background-color, 5%);
