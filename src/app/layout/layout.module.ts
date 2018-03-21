@@ -7,7 +7,6 @@ import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
-import { UploadVideosComponent } from './upload-videos/upload-videos.component';
 import { WatchDownloadVideosComponent } from './watch-download-videos/watch-download-videos.component';
 
 @NgModule({
@@ -17,6 +16,6 @@ import { WatchDownloadVideosComponent } from './watch-download-videos/watch-down
         TranslateModule,
         NgbDropdownModule.forRoot()
     ],
-    declarations: [LayoutComponent, SidebarComponent, HeaderComponent, UploadVideosComponent, WatchDownloadVideosComponent]
+    declarations: [LayoutComponent, SidebarComponent, HeaderComponent, WatchDownloadVideosComponent]
 })
 export class LayoutModule {}
