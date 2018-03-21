@@ -39,6 +39,10 @@ $topnav-background-color: #1A2930;
             background: darken($topnav-background-color, 5%);
             color: #fff;
         }
+        a.router-link-active:hover {
+            background: darken($topnav-background-color, 5%);
+            color: #F7CE3E;
+        }
         .header-fields {
             padding-top: 10px;
         
