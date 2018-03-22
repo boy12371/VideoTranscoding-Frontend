@@ -1,0 +1,38 @@
+sudo: required
+services:
+- docker
+dist: trusty
+language: node_js
+node_js:
+- '9.1'
+#addons: 
+#apt:
+#  sources:
+#  - google-chrome
+#  packages:
+#  - google-chrome-stable
+#  - google-chrome-beta
+#before_install:
+#- export CHROME_BIN=chromium-browser
+#- export DISPLAY=:99.0
+#- sh -e /etc/init.d/xvfb start
+before_script:
+- docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD" 
+- rm -rf node_modules
+#- npm cache clean
+#- npm install npm -g
+#- npm config set registry http://registry.npmjs.org/
+#- npm install -g @angular/cli
+#- npm install -g karma
+- npm install
+- npm run build:client-and-server-bundles
+- docker build -t luiscajl/videotranscoding-frontend .
+- docker push luiscajl/videotranscoding-frontend:latest
+- cd nginx
+- docker build -t luiscajl/videotranscoding-nginx .
+- docker push luiscajl/videotranscoding-nginx:latest
+
+#script: karma start config/karma.conf.js --single-run
+#after_success:
+
+
