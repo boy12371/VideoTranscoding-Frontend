@@ -61,55 +61,24 @@
                 </a>
                 <div class="dropdown-menu-right" ngbDropdownMenu>
                     <a href="javascript:void(0)" class="dropdown-item">
-                        {{ 'Pending Task' | translate }}
+                        Pending Task
                         <span class="badge badge-info">6</span>
                     </a>
                     <a href="javascript:void(0)" class="dropdown-item">
-                        {{ 'In queue' | translate }}
+                        In queue
                         <span class="badge badge-info"> 13</span>
                     </a>
                     <a href="javascript:void(0)" class="dropdown-item">
-                        {{ 'Mail' | translate }}
+                        Mail
                         <span class="badge badge-info"> 45</span>
                     </a>
                     <li class="dropdown-divider"></li>
                     <a href="javascript:void(0)" class="dropdown-item">
-                        {{ 'View All' | translate }}
+                        View All
                     </a>
                 </div>
             </li>
-            <li class="nav-item dropdown" ngbDropdown>
-                <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
-                    <i class="fa fa-language"></i> {{ 'Language' | translate }}
-                    <b class="caret"></b>
-                </a>
-                <div class="dropdown-menu-right" ngbDropdownMenu>
-                    <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('en')">
-                        {{ 'English' | translate }}
-                    </a>
-                    <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('fr')">
-                        {{ 'French' | translate }}
-                    </a>
-                    <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('ur')">
-                        {{ 'Urdu' | translate }}
-                    </a>
-                    <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('es')">
-                        {{ 'Spanish' | translate }}
-                    </a>
-                    <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('it')">
-                        {{ 'Italian' | translate }}
-                    </a>
-                    <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('fa')">
-                        {{ 'Farsi' | translate }}
-                    </a>
-                    <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('de')">
-                        {{ 'German' | translate }}
-                    </a>
-                    <a class="dropdown-item" href="javascript:void(0)" (click)="changeLang('zh-CHS')">
-                        {{ 'Simplified Chinese' | translate }}
-                    </a>
-                </div>
-            </li>
+         
             <li class="nav-item dropdown" ngbDropdown>
                 <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
                     <i class="fa fa-user"></i> John Smith
@@ -117,16 +86,16 @@
                 </a>
                 <div class="dropdown-menu-right" ngbDropdownMenu>
                     <a class="dropdown-item" href="javascript:void(0)">
-                        <i class="fa fa-fw fa-user"></i> {{ 'Profile' | translate }}
+                        <i class="fa fa-fw fa-user"></i> Profile
                     </a>
                     <a class="dropdown-item" href="javascript:void(0)">
-                        <i class="fa fa-fw fa-envelope"></i> {{ 'Inbox' | translate }}
+                        <i class="fa fa-fw fa-envelope"></i> Inbox
                     </a>
                     <a class="dropdown-item" href="javascript:void(0)">
-                        <i class="fa fa-fw fa-gear"></i> {{ 'Settings' | translate }}
+                        <i class="fa fa-fw fa-gear"></i> Settings
                     </a>
                     <a class="dropdown-item" [routerLink]="['/login']" (click)="onLoggedout()">
-                        <i class="fa fa-fw fa-power-off"></i> {{ 'Log Out' | translate }}
+                        <i class="fa fa-fw fa-power-off"></i> Log Out
                     </a>
                 </div>
             </li>
