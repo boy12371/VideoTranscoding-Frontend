@@ -11,7 +11,8 @@ const routes: Routes = [
             { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
             { path: 'bs-element', loadChildren: './bs-element/bs-element.module#BsElementModule' },
             { path: 'blank-page', loadChildren: './blank-page/blank-page.module#BlankPageModule' },
-            { path: 'upload-videos', loadChildren: './upload-videos/upload-videos.module#UploadVideosModule' }
+            { path: 'upload-videos', loadChildren: './upload-videos/upload-videos.module#UploadVideosModule' },
+            { path: 'watch-videos', loadChildren: './watch-videos/watch-videos.module#WatchVideosModule' }
 
         ]
     }

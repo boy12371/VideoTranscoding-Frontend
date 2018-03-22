@@ -15,45 +15,6 @@
                 </a>
             </li> &nbsp;
             <li class="nav-item dropdown" ngbDropdown>
-                <a class="nav-link" href="javascript:void(0)" ngbDropdownToggle>
-                    <i class="fa fa-envelope"></i>
-                    <b class="caret"></b>
-                    <span class="sr-only">(current)</span>
-                </a>
-                <ul class="dropdown-menu-right messages" ngbDropdownMenu>
-                    <li class="media">
-                        <img class="d-flex align-self-center mr-3" src="http://i.huffpost.com/gadgets/slideshows/461162/slide_461162_6224974_sq50.jpg"
-                            alt="Generic placeholder image">
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1">John Smith</h5>
-                            <p class="small text-muted">
-                                <i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                            <p class="last"> Lorem ipsum dolor sit amet, consectetur...</p>
-                        </div>
-                    </li>
-                    <li class="media">
-                        <img class="d-flex align-self-center mr-3" src="http://i.huffpost.com/gadgets/slideshows/461162/slide_461162_6224974_sq50.jpg"
-                            alt="Generic placeholder image">
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1">John Smith</h5>
-                            <p class="small text-muted">
-                                <i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                            <p class="last"> Lorem ipsum dolor sit amet, consectetur...</p>
-                        </div>
-                    </li>
-                    <li class="media">
-                        <img class="d-flex align-self-center mr-3" src="http://i.huffpost.com/gadgets/slideshows/461162/slide_461162_6224974_sq50.jpg"
-                            alt="Generic placeholder image" />
-                        <div class="media-body">
-                            <h5 class="mt-0 mb-1">John Smith</h5>
-                            <p class="small text-muted">
-                                <i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                            <p class="last"> Lorem ipsum dolor sit amet, consectetur...</p>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item dropdown" ngbDropdown>
                 <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
                     <i class="fa fa-bell"></i>
                     <b class="caret"></b>
@@ -78,15 +39,29 @@
                     </a>
                 </div>
             </li>
-         
+
             <li class="nav-item dropdown" ngbDropdown>
                 <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
                     <i class="fa fa-user"></i> John Smith
                     <b class="caret"></b>
                 </a>
                 <div class="dropdown-menu-right" ngbDropdownMenu>
-                    <a class="dropdown-item" href="javascript:void(0)">
+                    <a class="dropdown-item" (click)="open(content)">
                         <i class="fa fa-fw fa-user"></i> Profile
+                        <ng-template #content let-c="close" let-d="dismiss">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Modal title</h4>
+                                <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>One fine body&hellip;</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+                            </div>
+                        </ng-template>
                     </a>
                     <a class="dropdown-item" href="javascript:void(0)">
                         <i class="fa fa-fw fa-envelope"></i> Inbox

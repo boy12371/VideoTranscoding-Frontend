@@ -17,10 +17,11 @@ WORKDIR /home/luisca
 # install and cache app dependencies
 COPY package.json package.json
 COPY dist dist
+RUN ls -la /home/luisca/dist/*
 RUN npm install
 
-EXPOSE 8000
-WORKDIR /home/luisca/dist
+EXPOSE 4000
+WORKDIR /home/luisca
 #Config app
 CMD node /home/luisca/dist/server.js
 
