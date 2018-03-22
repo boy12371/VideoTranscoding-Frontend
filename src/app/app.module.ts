@@ -16,7 +16,8 @@ import { AuthGuard } from './shared';
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        AppRoutingModule
+        AppRoutingModule,
+        BrowserModule.withServerTransition({appId: 'my-app'}),
     ],
     declarations: [AppComponent],
     providers: [AuthGuard],
