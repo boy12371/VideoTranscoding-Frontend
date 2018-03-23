@@ -25,9 +25,22 @@
                 <li class="nested" [class.expand]="showMenu === 'profile'">
                     <ul class="submenu">
                         <li>
-                            <a href="javascript:void(0)">
+                            <a  (click)="open(content)">
                                 <span>
-                                    <i class="fa fa-fw fa-user"></i> Profile</span>
+                                    <i class="fa fa-fw fa-user"></i>Edit Profile</span><ng-template #content let-c="close" let-d="dismiss">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Edit Profile</h4>
+                                            <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>One fine body&hellip;</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+                                        </div>
+                                    </ng-template>
                             </a>
                         </li>
                         <li>
