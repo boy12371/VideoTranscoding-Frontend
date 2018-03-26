@@ -10,4 +10,9 @@ export class UserService {
     getUsers(): Observable<any> {
         return this.http.get(globals.USER_BASEURL);
     }
+    getUser(nameUser:string,password:string): Observable<any> {
+        var peticion=globals.USER_BASEURL+nameUser;
+        console.log(peticion);
+        return this.http.get(peticion);
+    }
 }
