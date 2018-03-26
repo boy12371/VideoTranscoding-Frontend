@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import * as globals from 'globals';
+import { HttpClientBasicAuth } from '../services/HttpClientBasicAuth'
+import * as globals from '../../globals';
 @Injectable()
 export class UserService {
 
-    constructor(private http: HttpClient) { }
+    constructor(private _http: HttpClientBasicAuth) { }
 
     getUsers(): Observable<any> {
-        return this.http.get(globals.USER_BASEURL);
+        return this._http.get(globals.USER_BASEURL);
     }
-    getUser(nameUser:string,password:string): Observable<any> {
-        var peticion=globals.USER_BASEURL+nameUser;
-        console.log(peticion);
-        return this.http.get(peticion);
+    loginUser(nameUser: string, password: string): Observable<any> {
+        this._http.sessionData.setAuthToken(this.generateAuthString(nameUser, password));
+        this._http.sessionData.setAmILogged(true);
+        var peticion = globals.USER_BASEURL + nameUser;
+        return this._http.get(peticion);
     }
+    private generateAuthString(username: String, password: String) {
+        return 'Basic ' + btoa(username + ':' + password);
+    }
+
 }
