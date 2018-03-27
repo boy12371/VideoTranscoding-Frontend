@@ -20,6 +20,7 @@ export class HttpClientBasicAuth {
         if (this.sessionData.amILogged()) {
             let headers = new HttpHeaders();
             headers = headers.set('Authorization', this.sessionData.authToken());
+            headers.set('Strict-Transport-Security','max-age=16000; includeSubDomains')
             return headers;
         }
         return new HttpHeaders();
