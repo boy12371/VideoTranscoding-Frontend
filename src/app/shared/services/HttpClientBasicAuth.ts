@@ -14,13 +14,14 @@ export class HttpClientBasicAuth {
     //   private logoutURI = "https://localhost:8443/api/logOut";
     constructor(private http: HttpClient) {
         this.sessionData = new SessionData();
+        
     }
 
     generateHeaders(): HttpHeaders {
         if (this.sessionData.amILogged()) {
             let headers = new HttpHeaders();
             headers = headers.set('Authorization', this.sessionData.authToken());
-            headers.set('Strict-Transport-Security','max-age=16000; includeSubDomains')
+            headers=headers.set('Strict-Transport-Security','max-age=16000; includeSubDomains')
             return headers;
         }
         return new HttpHeaders();
