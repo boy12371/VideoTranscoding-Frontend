@@ -14,9 +14,9 @@
                             placeholder="Password">
                     </div>
                 </div>
-                <a class="btn rounded-btn" type="submit"  (click)="logIn(nick.value, password.value, $event)"> Log in </a>
+                <button class="btn rounded-btn" (click)="logIn(nick.value, password.value, $event)"> Log in </button>
                 &nbsp;
-                <a class="btn rounded-btn" [routerLink]="['/signup']">Register</a>
+                <button class="btn rounded-btn" [routerLink]="['/signup']">Register</button>
             </form>
         </div>
     </div>
