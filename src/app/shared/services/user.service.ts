@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClientBasicAuth } from '../services/HttpClientBasicAuth'
 import * as globals from '../../globals';
+import {User} from '../models/user.model'
 @Injectable()
 export class UserService {
 
@@ -18,6 +19,12 @@ export class UserService {
     }
     private generateAuthString(username: String, password: String) {
         return 'Basic ' + btoa(username + ':' + password);
+    }
+    setUserLogged(user:User){
+        this._http.setUser(user);
+    }
+    deleteUserLogged(){
+        this._http.sessionData.reset();
     }
 
 }

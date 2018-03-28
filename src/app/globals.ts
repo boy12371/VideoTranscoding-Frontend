@@ -1,2 +1,2 @@
-export const BASEURL:string = 'https://localhost:8443/';
+export const BASEURL:string = 'https://api.videotranscoding.es';
 export const USER_BASEURL: string = BASEURL + 'user/';

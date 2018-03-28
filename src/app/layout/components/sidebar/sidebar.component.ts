@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from '../../../shared/services/user.service';
 
 @Component({
     selector: 'app-sidebar',
@@ -13,7 +14,7 @@ export class SidebarComponent {
     closeResult: string;
     pushRightClass: string = 'push-right';
 
-    constructor(public router: Router, private modalService: NgbModal) {
+    constructor(public router: Router, private modalService: NgbModal,private userService:UserService) {
 
         this.router.events.subscribe(val => {
             if (
@@ -55,7 +56,7 @@ export class SidebarComponent {
 
 
     onLoggedout() {
-        localStorage.removeItem('isLoggedin');
+        this.userService.deleteUserLogged();
     }
     open(content) {
         this.toggleSidebar();

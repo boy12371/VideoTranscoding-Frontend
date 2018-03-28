@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { routerTransition } from '../router.animations';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserService } from '../shared/services/user.service'
-import { HttpClientBasicAuth } from '../shared/services/HttpClientBasicAuth';
-
 
 @Component({
     selector: 'app-login',
@@ -18,21 +16,17 @@ export class LoginComponent implements OnInit {
         nick: "",
         password: ""
     }
-    constructor(public router: Router, private userService: UserService,private _http :HttpClientBasicAuth) { }
+    constructor(public router: Router, private userService: UserService) { }
     ngOnInit() {
 
     }
     logIn(username: string, password: string, event: Event) {
         event.preventDefault();
 
-        this.userService.loginUser(username, password).subscribe(result => { console.log(result) }, error => { console.log(error) });
+        this.userService.loginUser(username, password).subscribe(result => {
+            this.userService.setUserLogged(result); 
+            this.router.navigate(['/dashboard']);
+        }, error => { console.log(error) });
 
     }
-   
-   
-        // (click)="onLoggedin()"
-        // this.userService.getUser
-        //  localStorage.setItem('isLoggedin', 'true');
-        //   [routerLink]="['/dashboard']"
-    
 }

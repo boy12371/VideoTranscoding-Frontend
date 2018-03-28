@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from '../../../shared/services/user.service';
+import { User } from '../../../shared/models/user.model';
 
 @Component({
     selector: 'app-header',
@@ -10,7 +12,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 export class HeaderComponent implements OnInit {
     pushRightClass: string = 'push-right';
     closeResult: string;
-    constructor(public router: Router, private modalService: NgbModal) {
+    constructor(public router: Router, private modalService: NgbModal,private userService:UserService) {
         this.router.events.subscribe(val => {
             if (
                 val instanceof NavigationEnd &&
@@ -40,7 +42,7 @@ export class HeaderComponent implements OnInit {
     }
 
     onLoggedout() {
-        localStorage.removeItem('isLoggedin');
+        this.userService.deleteUserLogged();
     }
 
     open(content) {
