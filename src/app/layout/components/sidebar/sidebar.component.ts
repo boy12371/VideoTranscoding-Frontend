@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from '../../../shared/services/user.service';
+import { User } from '../../../shared/models/user.model';
 
 @Component({
     selector: 'app-sidebar',
@@ -13,6 +14,7 @@ export class SidebarComponent {
     showMenu: string = '';
     closeResult: string;
     pushRightClass: string = 'push-right';
+    userLogged:User
 
     constructor(public router: Router, private modalService: NgbModal,private userService:UserService) {
 
@@ -25,6 +27,8 @@ export class SidebarComponent {
                 this.toggleSidebar();
             }
         });
+        this.userLogged=this.userService.getLoggedUser();
+
     }
 
     eventCalled() {

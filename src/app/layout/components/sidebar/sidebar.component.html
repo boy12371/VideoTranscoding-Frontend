@@ -3,9 +3,6 @@
         <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-dashboard"></i>&nbsp;Dashboard
         </a>
-        <a [routerLink]="['/bs-element']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-desktop"></i>&nbsp;Bootstrap Element
-        </a>
         <a [routerLink]="['/upload-videos']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-upload"></i>&nbsp;Upload Videos
         </a>
@@ -20,7 +17,7 @@
             <div class="nested-menu">
                 <a class="list-group-item" (click)="addExpandClass('profile')">
                     <span>
-                        <i class="fa fa-user"></i>&nbsp; John Smith</span>
+                        <i class="fa fa-user"></i>&nbsp; {{userLogged.nick}}</span>
                 </a>
                 <li class="nested" [class.expand]="showMenu === 'profile'">
                     <ul class="submenu">

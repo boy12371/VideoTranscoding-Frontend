@@ -31,10 +31,10 @@ export class SessionData {
   public reset() {
     this.sessionData = {
       isLoggedin: false, isAdmin: false, userLogged: {
-          userId: 0, email: '', nick: '', photo: '', roles: [''],
+        userId: 0, email: '', nick: '', photo: '', roles: [''],
       }, authToken: ''
-  };
-   this.saveData();
+    };
+    this.saveData();
   }
 
   public amILogged() {
@@ -71,10 +71,10 @@ export class SessionData {
 
   public saveData() {
     //if (this.sessionData.isLoggedin) {
-      this.storage.setItem("isLoggedin", JSON.stringify(this.sessionData.isLoggedin));
-      this.storage.setItem("isAdmin", JSON.stringify(this.sessionData.isAdmin));
-      this.storage.setItem("authToken", JSON.stringify(this.sessionData.authToken));
-      this.storage.setItem("userLogged", JSON.stringify(this.sessionData.userLogged));
+    this.storage.setItem("isLoggedin", JSON.stringify(this.sessionData.isLoggedin));
+    this.storage.setItem("isAdmin", JSON.stringify(this.sessionData.isAdmin));
+    this.storage.setItem("authToken", JSON.stringify(this.sessionData.authToken));
+    this.storage.setItem("userLogged", JSON.stringify(this.sessionData.userLogged));
     //}
   }
 
@@ -84,7 +84,12 @@ export class SessionData {
 
   public loadData() {
     console.log("Trying to load session data from storage....")
-    this.sessionData = JSON.parse(this.storage.getItem("sessionDataaa"));
+    this.sessionData = {
+      isLoggedin: JSON.parse(this.storage.getItem("isLoggedin")),
+      isAdmin: JSON.parse(this.storage.getItem("isAdmin")),
+      userLogged: JSON.parse(this.storage.getItem("userLogged")),
+      authToken: JSON.parse(this.storage.getItem("authToken"))
+    };
     if (this.sessionData == undefined || this.sessionData == null) {
       console.log("Data not found, using new session")
       this.reset();

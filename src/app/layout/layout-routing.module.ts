@@ -9,10 +9,8 @@ const routes: Routes = [
         children: [
             { path: '', redirectTo: 'dashboard' },
             { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
-            { path: 'bs-element', loadChildren: './bs-element/bs-element.module#BsElementModule' },
             { path: 'upload-videos', loadChildren: './upload-videos/upload-videos.module#UploadVideosModule' },
             { path: 'watch-videos', loadChildren: './watch-videos/watch-videos.module#WatchVideosModule' }
-
         ]
     }
 ];

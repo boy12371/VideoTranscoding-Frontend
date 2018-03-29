@@ -42,12 +42,12 @@
 
             <li class="nav-item dropdown" ngbDropdown>
                 <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
-                    <i class="fa fa-user"></i> John Smith
+                    <i class="fa fa-user"></i> {{userLogged.nick}}
                     <b class="caret"></b>
                 </a>
                 <div class="dropdown-menu-right" ngbDropdownMenu>
                     <a class="dropdown-item" (click)="open(content)">
-                        <i class="fa fa-fw fa-user"></i> Profile
+                        <i class="fa fa-fw fa-user"></i>Edit Profile
                         <ng-template #content let-c="close" let-d="dismiss">
                             <div class="modal-header">
                                 <h4 class="modal-title">Modal title</h4>

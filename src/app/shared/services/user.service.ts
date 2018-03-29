@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { HttpClientBasicAuth } from '../services/HttpClientBasicAuth'
+import { HttpClientBasicAuth } from '../services/httpclientbasicauth.service'
 import * as globals from '../../globals';
-import {User} from '../models/user.model'
+import { User } from '../models/user.model'
+import { UserRegister } from '../../signup/signup.component';
 @Injectable()
 export class UserService {
 
@@ -17,14 +18,22 @@ export class UserService {
         var peticion = globals.USER_BASEURL + nameUser;
         return this._http.get(peticion);
     }
-    private generateAuthString(username: String, password: String) {
-        return 'Basic ' + btoa(username + ':' + password);
-    }
-    setUserLogged(user:User){
+
+    setUserLogged(user: User) {
         this._http.setUser(user);
     }
-    deleteUserLogged(){
+    deleteUserLogged() {
         this._http.sessionData.reset();
+    }
+    getLoggedUser():User{
+       return this._http.sessionData.getUserLogged();
+    }
+    registerUser(user: UserRegister):any {
+        var url=globals.USER_REGISTER;
+        return this._http.post(url,user);
+    }
+    private generateAuthString(username: String, password: String) {
+        return 'Basic ' + btoa(username + ':' + password);
     }
 
 }

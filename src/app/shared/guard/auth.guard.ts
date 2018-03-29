@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { Router } from '@angular/router';
-import { HttpClientBasicAuth } from '../services/HttpClientBasicAuth';
+import { HttpClientBasicAuth } from '../services/httpclientbasicauth.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

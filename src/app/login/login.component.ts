@@ -12,6 +12,8 @@ import { UserService } from '../shared/services/user.service'
 })
 
 export class LoginComponent implements OnInit {
+    error_login: boolean;
+    loading: boolean;
     model = {
         nick: "",
         password: ""
@@ -22,11 +24,14 @@ export class LoginComponent implements OnInit {
     }
     logIn(username: string, password: string, event: Event) {
         event.preventDefault();
+        this.loading = true;
+        this.error_login = false;
 
         this.userService.loginUser(username, password).subscribe(result => {
-            this.userService.setUserLogged(result); 
+            this.userService.setUserLogged(result);
             this.router.navigate(['/dashboard']);
-        }, error => { console.log(error) });
+            this.loading = false;
+        }, error => { this.error_login = true; this.loading = false });
 
     }
 }

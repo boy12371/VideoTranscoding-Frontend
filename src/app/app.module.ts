@@ -3,13 +3,16 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 import { UserService } from './shared/services/user.service'
-import { HttpClientBasicAuth } from './shared/services/HttpClientBasicAuth';
+import { OriginalService } from './shared/services/original.service'
+import { ConversionOperationsService } from './shared/services/conversion.operations.service'
+import { HttpClientBasicAuth } from './shared/services/httpclientbasicauth.service';
+import { UploadFileService } from './shared/services/upload-file.service';
 
 
 @NgModule({
@@ -18,11 +21,11 @@ import { HttpClientBasicAuth } from './shared/services/HttpClientBasicAuth';
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        AppRoutingModule,FormsModule,
+        AppRoutingModule, ReactiveFormsModule, FormsModule,
         BrowserModule.withServerTransition({ appId: 'my-app' }),
     ],
     declarations: [AppComponent],
-    providers: [AuthGuard, UserService,HttpClientBasicAuth ],
+    providers: [AuthGuard, UserService, HttpClientBasicAuth, OriginalService, ConversionOperationsService,UploadFileService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

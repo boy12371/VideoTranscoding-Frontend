@@ -12,6 +12,7 @@ import { User } from '../../../shared/models/user.model';
 export class HeaderComponent implements OnInit {
     pushRightClass: string = 'push-right';
     closeResult: string;
+    userLogged:User;
     constructor(public router: Router, private modalService: NgbModal,private userService:UserService) {
         this.router.events.subscribe(val => {
             if (
@@ -22,6 +23,7 @@ export class HeaderComponent implements OnInit {
                 this.toggleSidebar();
             }
         });
+        this.userLogged=this.userService.getLoggedUser();
     }
 
     ngOnInit() { }
