@@ -1,6 +1,10 @@
 <div [@routerTransition]>
-    <app-page-header [heading]="'Watch Videos'" [icon]="'fa fa-fw fa-television'"></app-page-header>
-    
-  
-  
+  <app-page-header [heading]="'Watch Videos'" [icon]="'fa fa-fw fa-television'"></app-page-header>
+  <div>
+    <vg-player>
+      <video [vgMedia]="media" #media id="singleVideo" preload="auto" controls>
+        <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
+      </video>
+    </vg-player>
   </div>
+</div>
