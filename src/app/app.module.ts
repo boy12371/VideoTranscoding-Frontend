@@ -9,9 +9,9 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 import { UserService } from './shared/services/user.service'
 import { OriginalService } from './shared/services/original.service'
-import { ConversionOperationsService } from './shared/services/conversion.operations.service'
 import { HttpClientBasicAuth } from './shared/services/httpclientbasicauth.service';
 import { UploadFileService } from './shared/services/upload-file.service';
+import { MediaService } from './shared/services/media.service';
 
 @NgModule({
     imports: [
@@ -25,7 +25,7 @@ import { UploadFileService } from './shared/services/upload-file.service';
         BrowserModule.withServerTransition({ appId: 'my-app' }),
     ],
     declarations: [AppComponent],
-    providers: [AuthGuard, UserService, HttpClientBasicAuth, OriginalService, ConversionOperationsService, UploadFileService],
+    providers: [AuthGuard, UserService, HttpClientBasicAuth, OriginalService, MediaService, UploadFileService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

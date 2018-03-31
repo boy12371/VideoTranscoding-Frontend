@@ -4,7 +4,6 @@ import { SessionData } from "../models/sessionData.model";
 import { User } from "../models/user.model";
 import { Observable } from 'rxjs/Observable';
 
-
 @Injectable()
 export class HttpClientBasicAuth {
 
@@ -44,34 +43,13 @@ export class HttpClientBasicAuth {
         });
     }
 
-    sendConversionExpert(url: string, formdata: FormData) {
-        console.log("Enviando conversion Expert")
+    sendConversion(url: string, formdata: FormData) {
         const req = new HttpRequest('POST', url, formdata, {
-            headers: this.generateHeaders(),
-            reportProgress: true,
-            responseType: 'text'
+            reportProgress: true, headers: this.generateHeaders()
         });
-        console.log(formdata);
-        //return this.http.request(req);
-        return this.http.post(url, formdata, { headers: this.generateHeaders() });
+        //return this.http.post(url, formdata, { headers: this.generateHeaders() });
+        return this.http.request(req);
     }
-
-    //   postImage($event){
-    //     var formData = new FormData();
-    //     formData.append('file', $event.target.files[0]);
-    //     return this.http.post(this.uploadImageURI, formData).map(
-    //       response => response.json()
-    //     );
-    //   }
-
-    //   logOut():Observable<any>{
-    //     return this.get(this.logoutURI).map(
-    //       response => {
-    //         this.sessionData.reset();
-    //       },
-    //       error => console.log(error)
-    //     );
-    //   }
 
     setUser(u: User) {
         this.sessionData.setUserLogged(u);

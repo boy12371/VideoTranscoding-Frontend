@@ -55,10 +55,6 @@ export class SignupComponent implements OnInit {
             }, error => { this.error_signUp = true; this.loading = false }
         )
     }
-
-
-
-
 }
 export interface UserRegister {
     nick: string;

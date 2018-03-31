@@ -3,18 +3,50 @@
   <div class="row">
     <div class="col-lg-6">
       <h4>Basic Conversion</h4>
-      <form role="form">
+      <hr>
+      <form role="form" [formGroup]="uploadVideoBasicForm" (ngSubmit)="uploadFileBasic(uploadVideoBasicForm)">
+        <div>
+          <h5>Select file:</h5>
+          <input type="file" (change)="selectFile($event)" />
+        </div>
+        <hr>
+        <div>
+          <h5>Select Conversion:</h5>
+          <fieldset class="form-group">
+            <select formControlName="conversionType" multiple="" class="form-control">
+              <option *ngFor="let basic of typeConversionBasic; let i = index">{{basic}}</option>
+            </select>
+          </fieldset>
+        </div>
+        <button class="btn btn-success" type="submit" type="submit">Upload</button>
       </form>
     </div>
     <div class="col-lg-6">
       <h4>Expert Conversion</h4>
-      <form role="form">
-        <div >
-          <h3>Select file</h3>
-          <input type="file" />
+      <hr>
+      <form role="form" [formGroup]="uploadVideoExpertForm" (ngSubmit)="uploadFileExpert(uploadVideoExpertForm)">
+        <div>
+          <h5>Select file:</h5>
+          <input type="file" (change)="selectFile($event)" />
         </div>
-        <button class="btn btn-success" (click)="upload()">Upload</button>
+        <hr>
+        <div>
+          <h5>Select Conversion:</h5>
+          <fieldset class="form-group">
+            <select formControlName="conversionType" multiple="" class="form-control">
+              <option *ngFor="let expert of typeConversionExpert; let i = index">{{expert}}</option>
+            </select>
+          </fieldset>
+        </div>
+        <button class="btn btn-success" type="submit" [disabled]="uploadVideoExpertForm.invalid" type="submit">Upload</button>
       </form>
     </div>
+
+  </div>
+  <hr>
+  <div *ngIf="file" class="progress">
+    <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+      aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+      {{progress.percentage}}%</div>
   </div>
 </div>
