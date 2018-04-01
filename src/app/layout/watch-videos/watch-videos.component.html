@@ -1,10 +1,33 @@
 <div [@routerTransition]>
   <app-page-header [heading]="'Watch Videos'" [icon]="'fa fa-fw fa-television'"></app-page-header>
-  <div>
-    <vg-player>
-      <video [vgMedia]="media" #media id="singleVideo" preload="auto" controls>
-        <source src="http://static.videogular.com/assets/videos/videogular.mp4" type="video/mp4">
-      </video>
-    </vg-player>
+  <div class="card" *ngFor="let original of listOriginalComplete">
+    <div class="card-header">{{original.name}}</div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <p class="mb-2">Original Video</p>
+          <vg-player style="width:50%">
+            <video [vgMedia]="media" #media id="singleVideo" preload="auto" controls>
+              <source [src]="getVideoUrl(original.originalId)" type="video/mp4">
+              <source [src]="getVideoUrl(original.originalId)" type="video/webm">
+            </video>
+          </vg-player>
+        </div>
+      </div>
+      <hr>
+      <p class="mb-2">Conversions.</p>
+      <div *ngFor="let conversion of original.conversions">
+        <div class="col">
+          <p class="mb-2">{{conversion.name}}</p>
+          <vg-player style="width:50%">
+            <video [vgMedia]="media" #media id="singleVideo" preload="auto" controls>
+              <source [src]="getVideoUrl(conversion.conversionId)" type="video/mp4">
+              <source [src]="getVideoUrl(conversion.conversionId)" type="video/webm">
+            </video>
+          </vg-player>
+          <hr>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

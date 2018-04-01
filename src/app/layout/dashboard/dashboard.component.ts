@@ -11,18 +11,20 @@ import { Conversion } from '../../shared/models/conversion.model';
     animations: [routerTransition()]
 })
 export class DashboardComponent implements OnInit, OnDestroy {
+    loading: boolean;
     originalVideos: Array<Original> = [];
+    originalOnProgress: Original = { originalId: 0, name: "", path: "", userVideo: null, fileSize: "", conversions: null, complete: false, active: false };
+    conversionsConverted: Array<Conversion> = [];
+    conversionOnProgress: Conversion;
     onConversion: boolean = false;
-    videoOnConversion: Original = { originalId: 0, name: "", path: "", userVideo: null, fileSize: "", conversions: null, complete: false, active: false };
-    conversionOnProgress:Conversion;
-    private alive: boolean; // used to unsubscribe from the IntervalObservable
     constructor(private mediaService: MediaService) {
     }
 
     ngOnInit() {
+        this.loading = true;
         this.getAllMedia();
         setTimeout(() => {
-            this.getOnConversion();
+            this.getOnProgress();
         },
             2000);
     }
@@ -33,30 +35,45 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 console.log("realizand peticion")
                 this.originalVideos = result;
             },
-            error => console.log(error))
+
+            error => {
+                console.log(error);
+                this.loading = false;
+            })
     }
-    getOnConversion() {
+    getOnProgress() {
         this.originalVideos.forEach(element => {
             console.log("Comparando objeto: " + element.name + " y esta: " + element.active)
             if (element.active == true) {
                 console.log("Conversion Activa: " + element.originalId)
-                this.videoOnConversion = element;
+                this.originalOnProgress = element;
                 this.onConversion = true;
                 this.updateOnConversion();
+            }
+            else {
+                this.loading = false;
+                setTimeout(() => {
+                    this.ngOnInit();
+                },
+                    60000);
             }
 
         });
     }
     updateOnConversion() {
-        this.mediaService.getOriginalById(this.videoOnConversion.originalId).subscribe(
+        this.mediaService.getOriginalById(this.originalOnProgress.originalId).subscribe(
             result => {
                 this.onConversion = true;
-                this.videoOnConversion = result;
-                console.log(result);
-                this.videoOnConversion.conversions.forEach(
+                this.originalOnProgress = result;
+                this.conversionsConverted = [];
+                this.originalOnProgress.conversions.forEach(
                     conversion => {
-                        if (conversion.active == true) { 
-                            this.conversionOnProgress=conversion;
+                        if (conversion.active == true) {
+                            this.loading = false;
+                            this.conversionOnProgress = conversion;
+                        }
+                        if (conversion.finished == true) {
+                            this.conversionsConverted.push(conversion);
                         }
                     })
                 setTimeout(() => {
