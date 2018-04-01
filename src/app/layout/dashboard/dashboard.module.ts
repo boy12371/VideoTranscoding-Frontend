@@ -5,9 +5,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
-import {
-    NotificationComponent,
-} from './components';
 import { StatModule } from '../../shared';
 
 @NgModule({
@@ -21,7 +18,7 @@ import { StatModule } from '../../shared';
     ],
     declarations: [
         DashboardComponent,
-        NotificationComponent,
+        
     ]
 })
-export class DashboardModule {}
+export class DashboardModule { }

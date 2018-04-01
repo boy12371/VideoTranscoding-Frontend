@@ -24,8 +24,6 @@ export class HttpClientBasicAuth {
     }
 
     get(url): Observable<any> {
-        console.log(this.generateHeaders())
-        console.log("HttpClient pre GET")
         return this.http.get(url, {
             headers: this.generateHeaders()
         });

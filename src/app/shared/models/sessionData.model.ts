@@ -31,7 +31,7 @@ export class SessionData {
   public reset() {
     this.sessionData = {
       isLoggedin: false, isAdmin: false, userLogged: {
-        userId: 0, email: '', nick: '', photo: '', roles: [''],
+        userId: 0, email: '', nick: '', photo: '', roles: [''],listOriginal:[]
       }, authToken: ''
     };
     this.saveData();
