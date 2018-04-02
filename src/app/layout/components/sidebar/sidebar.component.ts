@@ -61,6 +61,7 @@ export class SidebarComponent {
 
     onLoggedout() {
         this.userService.deleteUserLogged();
+        this.router.navigate(['/login']);
     }
     open(content) {
         this.toggleSidebar();
