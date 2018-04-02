@@ -33,7 +33,7 @@
         </div>
         <hr>
     </div>
-    <div class="row" *ngIf="onConversion">
+    <div class="row" *ngIf="onConversion && !loading">
         <div class="col-sm-3">
             <div class="card text-white bg-success mb-3">
                 <div class="card-header">Original</div>
@@ -64,14 +64,5 @@
             <div class="col-xl-3"></div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div *ngIf="loading" class="spinnerDashboard">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
-            </div>
-        </div>
-    </div>
-
 </div>
+<ng4-loading-spinner></ng4-loading-spinner>

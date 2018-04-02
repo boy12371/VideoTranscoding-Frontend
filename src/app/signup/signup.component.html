@@ -42,11 +42,6 @@
                                 The passwords are not the same </span>
                         </div>
                     </div>
-                    <div *ngIf="loading" class="spinner">
-                        <div class="bounce1"></div>
-                        <div class="bounce2"></div>
-                        <div class="bounce3"></div>
-                    </div>
                     <div *ngIf="error_signUp" class="alert alert-danger">
                         <strong>Oh !</strong> Nick or Email are registered yet.
                     </div>
@@ -60,3 +55,4 @@
         </div>
     </div>
 </div>
+<ng4-loading-spinner></ng4-loading-spinner>

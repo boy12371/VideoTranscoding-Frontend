@@ -3,6 +3,7 @@ import { routerTransition } from '../../router.animations';
 import { MediaService } from '../../shared/services/media.service';
 import { Original } from '../../shared/models/original.model';
 import { Conversion } from '../../shared/models/conversion.model';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 @Component({
     selector: 'app-dashboard',
@@ -11,16 +12,17 @@ import { Conversion } from '../../shared/models/conversion.model';
     animations: [routerTransition()]
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-    loading: boolean;
     originalVideos: Array<Original> = [];
     originalOnProgress: Original = { originalId: 0, name: "", path: "", userVideo: null, fileSize: "", conversions: null, complete: false, active: false };
     conversionsConverted: Array<Conversion> = [];
     conversionOnProgress: Conversion;
     onConversion: boolean = false;
-    constructor(private mediaService: MediaService) {
+    loading: boolean = false;
+    constructor(private mediaService: MediaService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) {
     }
 
     ngOnInit() {
+        this.ng4LoadingSpinnerService.show();
         this.loading = true;
         this.getAllMedia();
         setTimeout(() => {
@@ -32,12 +34,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     getAllMedia() {
         this.mediaService.getAllMedia().subscribe(
             result => {
-                console.log("realizand peticion")
+                console.log("Realizando peticion")
                 this.originalVideos = result;
             },
 
             error => {
                 console.log(error);
+                this.ng4LoadingSpinnerService.hide();
                 this.loading = false;
             })
     }
@@ -51,6 +54,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 this.updateOnConversion();
             }
             else {
+                this.ng4LoadingSpinnerService.hide();
                 this.loading = false;
                 setTimeout(() => {
                     this.ngOnInit();
@@ -69,6 +73,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 this.originalOnProgress.conversions.forEach(
                     conversion => {
                         if (conversion.active == true) {
+                            this.ng4LoadingSpinnerService.hide();
                             this.loading = false;
                             this.conversionOnProgress = conversion;
                         }

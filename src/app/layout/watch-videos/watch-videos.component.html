@@ -1,6 +1,6 @@
 <div [@routerTransition]>
   <app-page-header [heading]="'Watch Videos'" [icon]="'fa fa-fw fa-television'"></app-page-header>
-  <div class="card" *ngFor="let original of listOriginalComplete">
+  <!--<div class="card" *ngFor="let original of listOriginalComplete">
     <div class="card-header">{{original.name}}</div>
     <div class="card-body">
       <div class="row">
@@ -26,6 +26,44 @@
             </video>
           </vg-player>
           <hr>
+        </div>
+      </div>
+    </div>
+  </div>-->
+  <div class="row mb-3" *ngFor="let original of listOriginalComplete">
+    <div class="col col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>Original Video - </strong>
+          {{original.name}}
+        </div>
+        <div class="card-body">
+          <vg-player style="width:50%">
+            <video [vgMedia]="media" #media id="singleVideo" preload="auto" controls>
+              <source [src]="getVideoUrl(original.originalId)" type="video/mp4">
+              <source [src]="getVideoUrl(original.originalId)" type="video/webm">
+            </video>
+          </vg-player>
+        </div>
+      </div>
+    </div>
+    <div class="col col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>Conversions</strong>
+        </div>
+        <div class="card-body">
+          <vg-player style="width:50%">
+            <video [vgMedia]="media" #media id="singleVideo" preload="auto" controls>
+              <source [src]="getVideoUrl(original.conversions[0].conversionId)" type="video/mp4">
+              <source [src]="getVideoUrl(original.conversions[0].conversionId)" type="video/webm">
+            </video>
+          </vg-player>
+          <ul>
+            <li *ngFor="let conversion of original.conversions">
+              {{ conversion.name }}
+            </li>
+          </ul>
         </div>
       </div>
     </div>

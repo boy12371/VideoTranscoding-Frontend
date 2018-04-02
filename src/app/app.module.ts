@@ -12,6 +12,7 @@ import { OriginalService } from './shared/services/original.service'
 import { HttpClientBasicAuth } from './shared/services/httpclientbasicauth.service';
 import { UploadFileService } from './shared/services/upload-file.service';
 import { MediaService } from './shared/services/media.service';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 @NgModule({
     imports: [
@@ -23,6 +24,7 @@ import { MediaService } from './shared/services/media.service';
         ReactiveFormsModule,
         FormsModule,
         BrowserModule.withServerTransition({ appId: 'my-app' }),
+        Ng4LoadingSpinnerModule.forRoot()
     ],
     declarations: [AppComponent],
     providers: [AuthGuard, UserService, HttpClientBasicAuth, OriginalService, MediaService, UploadFileService],

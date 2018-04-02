@@ -6,6 +6,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { StatModule } from '../../shared';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 @NgModule({
     imports: [
@@ -14,7 +15,7 @@ import { StatModule } from '../../shared';
         NgbAlertModule.forRoot(),
         DashboardRoutingModule,
         NgbModule.forRoot(),
-        StatModule
+        StatModule,Ng4LoadingSpinnerModule
     ],
     declarations: [
         DashboardComponent,

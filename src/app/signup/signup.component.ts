@@ -5,6 +5,7 @@ import { matchOtherValidator } from './passwordValidation';
 import { UserService } from '../shared/services/user.service';
 import { User } from '../shared/models/user.model';
 import { Router } from '@angular/router';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 @Component({
     selector: 'app-signup',
     templateUrl: './signup.component.html',
@@ -15,9 +16,8 @@ export class SignupComponent implements OnInit {
     userRegister: UserRegister;
     signupForm: FormGroup;
     error_signUp: boolean;
-    loading: boolean;
     registedAndLogin: boolean;
-    constructor(public router: Router, private userService: UserService) { }
+    constructor(public router: Router, private userService: UserService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) { }
 
     register() { }
     ngOnInit() {
@@ -32,9 +32,9 @@ export class SignupComponent implements OnInit {
         })
     }
     onSubmit(form: FormGroup) {
-        this.loading = true;
-        this.error_signUp=false;
-        this.registedAndLogin=false;
+        this.ng4LoadingSpinnerService.show();
+        this.error_signUp = false;
+        this.registedAndLogin = false;
         let valuesForm: any = form.value;
         this.userRegister = valuesForm;
         console.log(this.userRegister);
@@ -44,15 +44,20 @@ export class SignupComponent implements OnInit {
                 this.userService.loginUser(this.userRegister.nick, this.userRegister.userPassword).subscribe(
                     result => {
                         this.userService.setUserLogged(result);
-                        setTimeout(() => 
-                        {
+                        setTimeout(() => {
+                            this.ng4LoadingSpinnerService.hide();
                             this.router.navigate(['/dashboard']);
                         },
-                        2000); 
-                        this.loading = false;
+                            2000);
                     },
-                    error => { this.error_signUp = true; this.loading = false })
-            }, error => { this.error_signUp = true; this.loading = false }
+                    error => {
+                        this.error_signUp = true;
+                        this.ng4LoadingSpinnerService.hide();
+                    })
+            }, error => {
+                this.error_signUp = true;
+                this.ng4LoadingSpinnerService.hide();
+            }
         )
     }
 }
