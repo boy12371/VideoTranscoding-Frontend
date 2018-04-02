@@ -45,6 +45,7 @@ export class HeaderComponent implements OnInit {
 
     onLoggedout() {
         this.userService.deleteUserLogged();
+        this.router.navigate(['/login']);
     }
 
     open(content) {

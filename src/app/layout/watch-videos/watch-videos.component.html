@@ -53,19 +53,33 @@
           <strong>Conversions</strong>
         </div>
         <div class="card-body">
-          <vg-player style="width:50%">
-            <video [vgMedia]="media" #media id="singleVideo" preload="auto" controls>
-              <source [src]="getVideoUrl(original.conversions[0].conversionId)" type="video/mp4">
-              <source [src]="getVideoUrl(original.conversions[0].conversionId)" type="video/webm">
-            </video>
+          Video Selected: NAME
+          <vg-player style="width:50%" (onPlayerReady)="onPlayerReady($event)">
+            <video [vgMedia]="media" #media id="singleVideo" preload="auto" [src]="currentItemConversion.src" type="video/mp4" controls></video>
           </vg-player>
-          <ul>
-            <li *ngFor="let conversion of original.conversions">
-              {{ conversion.name }}
-            </li>
-          </ul>
+        </div>
+        <hr>
+        <div class="card-body">
+          Select conversion:
+          <div class="list-group" *ngFor="let conversion of original.conversions; let $index = index">
+            <!--  <a href="javascript:void(0)" class="list-group-item active"> {{ conversion.name }}</a>-->
+            <a href="javascript:void(0)" class="list-group-item" (click)="onClickPlaylistItem(conversion, $index)"> {{ conversion.name }}</a>
+          </div>
         </div>
       </div>
     </div>
   </div>
+  <div class="row" *ngIf="noListOriginal">
+    <div class="col-xl-3"></div>
+    <div class="col-xl-6">
+      <div class="alert alert-info">
+        <strong>Oh!</strong> No video on this moment.
+      </div>
+      <div class="wrapper">
+        <button type="button" class="btn btn-primary center" [routerLink]="['/upload-videos']">Start here!</button>
+      </div>
+      <div class="col-xl-3"></div>
+    </div>
+  </div>
 </div>
+<ng4-loading-spinner></ng4-loading-spinner>
