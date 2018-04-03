@@ -4,6 +4,7 @@ import { MediaService } from '../../shared/services/media.service';
 import { Original } from '../../shared/models/original.model';
 import { Conversion } from '../../shared/models/conversion.model';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import { Observable, Subscription } from 'rxjs/Rx';
 
 @Component({
     selector: 'app-dashboard',
@@ -18,6 +19,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     conversionOnProgress: Conversion;
     onConversion: boolean = false;
     loading: boolean = false;
+
+    interval: Subscription = undefined;
+
     constructor(private mediaService: MediaService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) {
     }
 
@@ -25,19 +29,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.ng4LoadingSpinnerService.show();
         this.loading = true;
         this.getAllMedia();
-        setTimeout(() => {
-            this.getOnProgress();
-        },
-            2000);
     }
 
     getAllMedia() {
+        console.log("Realizando peticion para todos los objetos ")
         this.mediaService.getAllMedia().subscribe(
             result => {
-                console.log("Realizando peticion")
                 this.originalVideos = result;
+                this.getOnProgress();
             },
-
             error => {
                 console.log(error);
                 this.ng4LoadingSpinnerService.hide();
@@ -46,25 +46,26 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
     getOnProgress() {
         this.originalVideos.forEach(element => {
-            console.log("Comparando objeto: " + element.name + " y esta: " + element.active)
+            console.log("Comparando objeto: " + element.name + " y su valor es: " + element.active)
             if (element.active == true) {
                 console.log("Conversion Activa: " + element.originalId)
                 this.originalOnProgress = element;
                 this.onConversion = true;
                 this.updateOnConversion();
             }
-            else {
-                this.ng4LoadingSpinnerService.hide();
-                this.loading = false;
-                setTimeout(() => {
-                    this.ngOnInit();
-                },
-                    60000);
-            }
-
         });
+        if (this.originalOnProgress.originalId == 0) {
+            this.ng4LoadingSpinnerService.hide();
+            this.loading = false;
+        }
+        if (this.interval == undefined) {
+            this.interval = Observable.interval(60000).subscribe(x => {
+                this.ngOnInit();
+            });
+        }
     }
     updateOnConversion() {
+        console.log("Realizando peticion de un solo objeto");
         this.mediaService.getOriginalById(this.originalOnProgress.originalId).subscribe(
             result => {
                 this.onConversion = true;
@@ -81,16 +82,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
                             this.conversionsConverted.push(conversion);
                         }
                     })
-                setTimeout(() => {
+                this.interval = Observable.interval(2000).subscribe(x => {
                     this.updateOnConversion();
-                },
-                    2000);
+                });
             },
             error => console.log(error)
         );
     }
 
     ngOnDestroy() {
+        this.interval.unsubscribe();
     }
 
 }

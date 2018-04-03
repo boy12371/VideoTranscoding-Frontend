@@ -15,7 +15,8 @@ import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
         NgbAlertModule.forRoot(),
         DashboardRoutingModule,
         NgbModule.forRoot(),
-        StatModule,Ng4LoadingSpinnerModule
+        StatModule,
+        Ng4LoadingSpinnerModule
     ],
     declarations: [
         DashboardComponent,

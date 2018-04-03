@@ -4,6 +4,7 @@ import { UploadVideosComponent } from './upload-videos.component';
 import { UploadVideosRoutingModule } from './upload-videos-routing.module';
 import { PageHeaderModule } from '../../shared';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     UploadVideosRoutingModule,
     PageHeaderModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Ng4LoadingSpinnerModule
   ],
   declarations: [UploadVideosComponent]
 })

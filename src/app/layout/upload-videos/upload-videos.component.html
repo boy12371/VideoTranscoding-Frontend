@@ -18,7 +18,7 @@
             </select>
           </fieldset>
         </div>
-        <button class="btn btn-success" type="submit" type="submit">Upload</button>
+        <button class="btn btn-success" type="submit" [disabled]="uploadVideoBasicForm.invalid || !selectedFile()">Upload Basic</button>
       </form>
     </div>
     <div class="col-lg-6">
@@ -38,10 +38,10 @@
             </select>
           </fieldset>
         </div>
-        <button class="btn btn-success" type="submit" [disabled]="uploadVideoExpertForm.invalid" type="submit">Upload</button>
+        <button class="btn btn-success" type="submit" [disabled]="uploadVideoExpertForm.invalid" type="submit">Upload Expert</button>
       </form>
     </div>
-
+    <hr>
   </div>
   <hr>
   <div *ngIf="file" class="progress">
@@ -50,3 +50,19 @@
       {{progress.percentage}}%</div>
   </div>
 </div>
+<hr>
+<div class="row" *ngIf="videoUploaded">
+
+  <div class="col-xl-3"></div>
+
+  <div class="col-xl-6">
+    <div class="alert alert-info">
+      <strong>Conversion on progress!</strong>
+    </div>
+    <div class="wrapper">
+      <button type="button" class="btn btn-primary center" [routerLink]="['/dashboard']">See there!</button>
+    </div>
+    <div class="col-xl-3"></div>
+  </div>
+</div>
+<ng4-loading-spinner></ng4-loading-spinner>
