@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,7 +25,9 @@ import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
         ReactiveFormsModule,
         FormsModule,
         BrowserModule.withServerTransition({ appId: 'my-app' }),
-        Ng4LoadingSpinnerModule.forRoot()
+        Ng4LoadingSpinnerModule.forRoot(),
+        NgbModule.forRoot()
+
     ],
     declarations: [AppComponent],
     providers: [AuthGuard, UserService, HttpClientBasicAuth, OriginalService, MediaService, UploadFileService],

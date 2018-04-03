@@ -38,7 +38,7 @@
             </select>
           </fieldset>
         </div>
-        <button class="btn btn-success" type="submit" [disabled]="uploadVideoExpertForm.invalid" type="submit">Upload Expert</button>
+        <button class="btn btn-success" type="submit" [disabled]="uploadVideoExpertForm.invalid || !selectedFile()" type="submit">Upload Expert</button>
       </form>
     </div>
     <hr>

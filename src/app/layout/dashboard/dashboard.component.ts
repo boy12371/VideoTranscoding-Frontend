@@ -44,16 +44,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
                 this.loading = false;
             })
     }
-    getOnProgress() {
-        this.originalVideos.forEach(element => {
+    getOnProgress(): any {
+        for (let element of this.originalVideos) {
             console.log("Comparando objeto: " + element.name + " y su valor es: " + element.active)
             if (element.active == true) {
                 console.log("Conversion Activa: " + element.originalId)
                 this.originalOnProgress = element;
                 this.onConversion = true;
                 this.updateOnConversion();
+                return null;
             }
-        });
+        }
         if (this.originalOnProgress.originalId == 0) {
             this.ng4LoadingSpinnerService.hide();
             this.loading = false;
@@ -66,32 +67,47 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
     updateOnConversion() {
         console.log("Realizando peticion de un solo objeto");
-        this.mediaService.getOriginalById(this.originalOnProgress.originalId).subscribe(
-            result => {
-                this.onConversion = true;
-                this.originalOnProgress = result;
-                this.conversionsConverted = [];
-                this.originalOnProgress.conversions.forEach(
-                    conversion => {
-                        if (conversion.active == true) {
-                            this.ng4LoadingSpinnerService.hide();
-                            this.loading = false;
-                            this.conversionOnProgress = conversion;
-                        }
-                        if (conversion.finished == true) {
-                            this.conversionsConverted.push(conversion);
-                        }
-                    })
-                this.interval = Observable.interval(2000).subscribe(x => {
-                    this.updateOnConversion();
-                });
-            },
-            error => console.log(error)
-        );
+        if (this.originalOnProgress.active) {
+            this.mediaService.getOriginalById(this.originalOnProgress.originalId).subscribe(
+                result => {
+                    this.onConversion = true;
+                    this.originalOnProgress = result;
+                    this.conversionsConverted = [];
+                    this.originalOnProgress.conversions.forEach(
+                        conversion => {
+                            if (conversion.active == true) {
+                                this.ng4LoadingSpinnerService.hide();
+                                this.loading = false;
+                                this.conversionOnProgress = conversion;
+                            }
+                            if (conversion.finished == true) {
+                                this.conversionsConverted.push(conversion);
+                            }
+                        })
+
+                    if (this.interval == undefined) {
+                        this.interval = Observable.interval(2000).subscribe(x => {
+                            this.updateOnConversion();
+                        });
+                    }
+                },
+                error => console.log(error)
+            );
+        }
+        if (this.originalOnProgress.complete == true) {
+            this.interval = undefined;
+            this.onConversion = false;
+            this.loading = true;
+            this.originalOnProgress = { originalId: 0, name: "", path: "", userVideo: null, fileSize: "", conversions: null, complete: false, active: false };
+            this.ngOnInit();
+        }
+
     }
 
     ngOnDestroy() {
-        this.interval.unsubscribe();
+        if (this.interval != undefined) {
+            this.interval.unsubscribe();
+        }
     }
 
 }
