@@ -2,7 +2,7 @@
     <app-page-header [heading]="'Manage Videos'" [heading2]="originalVideo.name" [uriRedirect]="'/manage-videos'" [icon2]="'fa fa-file'"
         [icon]="'fa fa-fw fa-list-ol'"></app-page-header>
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-6">
             <div class="card mb-3">
                 <div class="card-header">
                     <strong>Original: </strong>{{originalVideo.name}}
@@ -14,9 +14,11 @@
                             <li class="list-group-item">Complete: {{originalVideo.complete}}</li>
                             <li class="list-group-item">Active: {{originalVideo.active}}</li>
                             <li class="list-group-item">
-                                <button type="button" class="btn btn-danger">Delete Video</button>
-                                <button type="button" class="btn btn-success">Watch Video</button>
-                                <button type="button" class="btn btn-info">Download Video</button>
+                                <div class="btn-group-vertical btn-block">
+                                    <button type="button" class="btn btn-danger">Delete Video</button>
+                                    <button type="button" class="btn btn-success">Watch Video</button>
+                                    <button type="button" class="btn btn-info">Download Video</button>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -24,10 +26,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-6">
             <div class="card mb-3" *ngFor="let conversion of originalVideo.conversions">
                 <div class="card-header">
-                    <strong>Conversion: </strong>{{conversion.name}}<br><strong>Type: </strong>{{conversion.conversionType}}
+                    <strong>Conversion: </strong>{{conversion.name}}
+                    <br>
+                    <strong>Type: </strong>{{conversion.conversionType}}
                 </div>
                 <div class="card-body">
                     <div class="col-sm-12">
@@ -37,9 +41,11 @@
                             <li *ngIf="!conversion.finished" class="list-group-item">Active: {{conversion.active}}</li>
                             <li *ngIf="!conversion.finished" class="list-group-item">Progress: {{conversion.progress}}</li>
                             <li class="list-group-item">
-                                <button type="button" class="btn btn-danger">Delete Video</button>
-                                <button type="button" class="btn btn-success">Watch Video</button>
-                                <button type="button" class="btn btn-info">Download Video</button>
+                                <div class="btn-group-vertical btn-block">
+                                    <button type="button" class="btn btn-danger">Delete Video</button>
+                                    <button type="button" class="btn btn-success">Watch Video</button>
+                                    <button type="button" class="btn btn-info">Download Video</button>
+                                </div>
                             </li>
                         </ul>
                     </div>
