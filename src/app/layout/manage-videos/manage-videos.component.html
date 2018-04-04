@@ -1,7 +1,7 @@
 <div [@routerTransition]>
     <app-page-header [heading]="'Manage Videos'" [icon]="'fa fa-fw fa-list-ol'"></app-page-header>
-    <div class="row" *ngFor="let original of originalVideos; let i = index">
-        <div class="col-lg-4">
+    <div class="row">
+        <div class="col-lg-4" *ngFor="let original of originalVideos">
             <div class="card mb-3">
                 <div class="card-header">
                     <strong>{{original.name}}</strong>
@@ -15,36 +15,16 @@
                             <li class="list-group-item">
                                 <button type="button" class="btn btn-danger">Delete Video</button>
                                 <button type="button" class="btn btn-success">Watch Video</button>
+                                <button type="button" class="btn btn-info">Download Video</button>
                             </li>
                         </ul>
                     </div>
                     <hr>
                     <p>
-                        <button type="button" class="btn btn-outline-primary" (click)="fillCollapse(original.originalId,i)" [attr.aria-expanded]="!isCollapsed"
-                            aria-controls="collapseExample">
+                        <button type="button" class="btn btn-outline-primary" (click)="goToConversion(original.originalId)">
                             Open Conversions
                         </button>
                     </p>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-8">
-            <div id="collapseExample" [ngbCollapse]="isCollapsed">
-                <div class="card mb-3" *ngFor="let conversion of original.conversions">
-                    <div class="card-header">
-                        <strong>{{conversion.name}}</strong>
-                    </div>
-                    <div class="card-body">
-                        <div class="col-sm-12">
-                            <ul class="list-group">
-                                <li class="list-group-item">Size: {{conversion.fileSize}}</li>
-                                <li class="list-group-item">Complete: {{conversion.finished}}</li>
-                                <li *ngIf="!conversion.finished" class="list-group-item">Active: {{conversion.active}}</li>
-                                <li *ngIf="!conversion.finished" class="list-group-item">Progress: {{conversion.progress}}</li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

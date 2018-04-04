@@ -6,6 +6,7 @@ import * as globals from '../../globals';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { Conversion } from '../../shared/models/conversion.model';
 import { VgAPI } from 'videogular2/core';
+import { Router } from '@angular/router';
 
 export interface CurrentItem {
   conversion: Conversion;
@@ -27,7 +28,7 @@ export class WatchVideosComponent implements OnInit {
   currentItemConversion: CurrentItem;
   api: VgAPI;
 
-  constructor(private mediaService: MediaService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) { }
+  constructor(private router: Router, private mediaService: MediaService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) { }
   onPlayerReady(api: VgAPI) {
     this.api = api;
 
@@ -85,7 +86,12 @@ export class WatchVideosComponent implements OnInit {
   }
   onClickPlaylistItem(item: Conversion, index: number) {
     this.currentItemConversion.conversion = item;
-    this.currentItemConversion.src=this.getVideoUrl(this.currentItemConversion.conversion.conversionId);
+    this.currentItemConversion.src = this.getVideoUrl(this.currentItemConversion.conversion.conversionId);
+  }
+  watchVideo(idRedirect: number, idWatch: number) {
+    console.log(idRedirect);
+    console.log(idWatch);
+    this.router.navigate(['']);
   }
 
 }

@@ -9,7 +9,16 @@ import { RouterModule } from '@angular/router';
 export class PageHeaderComponent implements OnInit {
     @Input() heading: string;
     @Input() icon: string;
-    constructor() {}
+    @Input() heading2: string;
+    @Input() icon2: string;
+    @Input() uriRedirect: string;
+    secondItem: boolean;
+    constructor() {
+    }
 
-    ngOnInit() {}
+    ngOnInit() {
+        if (this.heading2 != undefined) {
+            this.secondItem = true;
+        }
+    }
 }

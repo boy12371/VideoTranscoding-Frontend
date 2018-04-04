@@ -1,19 +1,39 @@
 <div [@routerTransition]>
   <app-page-header [heading]="'Watch Videos'" [icon]="'fa fa-fw fa-television'"></app-page-header>
-  <div class="row mb-12">
-    <div class="col col-sm-3" *ngFor="let original of listOriginalComplete">
+  <div class="row mb-3" *ngFor="let original of listOriginalComplete">
+    <div class="col col-sm-6">
       <div class="card">
         <div class="card-header">
           <strong>Original Video - </strong>
           {{original.name}}
-          <button type="button" (click)="watchVideo(original.originalId,original.originalId)" class="btn btn-success">Watch</button>
-
         </div>
         <div class="card-body">
+          <vg-player style="width:50%">
+            <video [vgMedia]="media" #media id="singleVideo" preload="auto" controls>
+              <source [src]="getVideoUrl(original.originalId)" type="video/mp4">
+              <source [src]="getVideoUrl(original.originalId)" type="video/webm">
+            </video>
+          </vg-player>
+        </div>
+      </div>
+    </div>
+    <div class="col col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>Conversions</strong>
+        </div>
+        <div class="card-body">
+          Video Selected: NAME
+          <vg-player style="width:50%" (onPlayerReady)="onPlayerReady($event)">
+            <video [vgMedia]="media" #media id="singleVideo" preload="auto" [src]="currentItemConversion.src" type="video/mp4" controls></video>
+          </vg-player>
+        </div>
+        <hr>
+        <div class="card-body">
+          Select conversion:
           <div class="list-group" *ngFor="let conversion of original.conversions; let $index = index">
             <!--  <a href="javascript:void(0)" class="list-group-item active"> {{ conversion.name }}</a>-->
             <a href="javascript:void(0)" class="list-group-item" (click)="onClickPlaylistItem(conversion, $index)"> {{ conversion.name }}</a>
-            <button type="button" (click)="watchVideo(original.originalId,conversion.conversionId)" class="btn btn-success">Watch</button>
           </div>
         </div>
       </div>
