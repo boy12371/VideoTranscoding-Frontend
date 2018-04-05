@@ -1,19 +1,22 @@
 <div [@routerTransition]>
   <app-page-header [heading]="'Watch Videos'" [icon]="'fa fa-fw fa-television'"></app-page-header>
   <div class="row mb-12">
-    <div class="col col-sm-3" *ngFor="let original of listOriginalComplete">
+    <div class="col col-sm-4" *ngFor="let original of listOriginalComplete">
       <div class="card">
         <div class="card-header">
           <strong>Original Video - </strong>
-          {{original.name}}
-          <button type="button" (click)="watchVideo(original.originalId,original.originalId)" class="btn btn-success">Watch</button>
-
+          <a (click)="watchVideo(original.originalId,original.originalId)" href="javascript:void(0)">{{original.name}}</a>
         </div>
         <div class="card-body">
-          <div class="list-group" *ngFor="let conversion of original.conversions; let $index = index">
-            <!--  <a href="javascript:void(0)" class="list-group-item active"> {{ conversion.name }}</a>-->
-            <a href="javascript:void(0)" class="list-group-item" (click)="onClickPlaylistItem(conversion, $index)"> {{ conversion.name }}</a>
-            <button type="button" (click)="watchVideo(original.originalId,conversion.conversionId)" class="btn btn-success">Watch</button>
+          <div *ngFor="let conversion of original.conversions; let $index = index">
+            <ul class="list-group">
+              <li *ngIf="original.complete" class="list-group-item"><strong>Conversion: </strong> 
+                <a href="javascript:void(0)" (click)="watchVideo(original.originalId,conversion.conversionId)">{{ conversion.name }}</a>
+              </li>
+              <li *ngIf="original.complete" class="list-group-item"><strong>Type: </strong>{{conversion.conversionType}}
+              </li>
+            </ul>
+            <hr>
           </div>
         </div>
       </div>

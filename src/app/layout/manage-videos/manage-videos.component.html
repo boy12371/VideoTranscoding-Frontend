@@ -6,27 +6,25 @@
                 <div class="card-header">
                     <strong>{{original.name}}</strong>
                 </div>
-                <div class="card-body">
-                    <div class="col-sm-12">
+                <div class="row card-body">
+                    <div class="col-sm-6">
                         <ul class="list-group">
                             <li class="list-group-item">Size: {{original.fileSize}}</li>
-                            <li class="list-group-item">Complete: {{original.complete}}</li>
-                            <li class="list-group-item">Active: {{original.active}}</li>
-                            <li class="list-group-item">
-                                <div class="btn-group-vertical btn-block">
-                                    <button type="button" class="btn btn-danger">Delete Video</button>
-                                    <button type="button" class="btn btn-success">Watch Video</button>
-                                    <button type="button" class="btn btn-info">Download Video</button>
-                                </div>
-                            </li>
+                            <li *ngIf="original.complete" class="list-group-item">Complete: Yes</li>
+                            <li *ngIf="!original.complete" class="list-group-item">Complete: No</li>
+                            <li *ngIf="!original.complete && original.active" class="list-group-item">Active: Yes</li>
+                            <li *ngIf="!original.complete && !original.active" class="list-group-item">Active: No</li>
                         </ul>
                     </div>
+                    <div class="col-sm-6">
+                        <div class="btn-group-vertical btn-block">
+                            <button type="button" class="btn btn-danger">Delete Video</button>
+                            <button type="button" class="btn btn-success" (click)="watchVideo(original.originalId,original.originalId)">Watch Video</button>
+                            <button type="button" class="btn btn-info">Download Video</button>
+                            <button type="button" (click)="goToConversion(original.originalId)" class="btn btn-warning">Open Conversions</button>
+                        </div>
+                    </div>
                     <hr>
-                    <p>
-                        <button type="button" class="btn btn-outline-primary" (click)="goToConversion(original.originalId)">
-                            Open Conversions
-                        </button>
-                    </p>
                 </div>
             </div>
         </div>

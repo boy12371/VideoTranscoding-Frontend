@@ -88,10 +88,10 @@ export class WatchVideosComponent implements OnInit {
     this.currentItemConversion.conversion = item;
     this.currentItemConversion.src = this.getVideoUrl(this.currentItemConversion.conversion.conversionId);
   }
-  watchVideo(idRedirect: number, idWatch: number) {
+  watchVideo(idRedirect: number, idWatchRedirect: number) {
     console.log(idRedirect);
-    console.log(idWatch);
-    this.router.navigate(['']);
+    console.log(idWatchRedirect);
+    this.router.navigate(['/watch-video/' + idRedirect], { queryParams: { idWatch: idWatchRedirect } });
   }
 
 }

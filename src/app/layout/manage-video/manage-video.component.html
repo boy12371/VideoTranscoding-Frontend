@@ -7,20 +7,22 @@
                 <div class="card-header">
                     <strong>Original: </strong>{{originalVideo.name}}
                 </div>
-                <div class="card-body">
-                    <div class="col-sm-12">
+                <div class="row card-body">
+                    <div class="col-sm-6">
                         <ul class="list-group">
                             <li class="list-group-item">Size: {{originalVideo.fileSize}}</li>
-                            <li class="list-group-item">Complete: {{originalVideo.complete}}</li>
-                            <li class="list-group-item">Active: {{originalVideo.active}}</li>
-                            <li class="list-group-item">
-                                <div class="btn-group-vertical btn-block">
-                                    <button type="button" class="btn btn-danger">Delete Video</button>
-                                    <button type="button" class="btn btn-success">Watch Video</button>
-                                    <button type="button" class="btn btn-info">Download Video</button>
-                                </div>
-                            </li>
+                            <li *ngIf="originalVideo.complete" class="list-group-item">Complete: Yes</li>
+                            <li *ngIf="!originalVideo.complete" class="list-group-item">Complete: No</li>
+                            <li *ngIf="!originalVideo.complete && originalVideo.active" class="list-group-item">Active: Yes</li>
+                            <li *ngIf="!originalVideo.complete && !originalVideo.active" class="list-group-item">Active: No</li>
                         </ul>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="btn-group-vertical btn-block">
+                            <button type="button" class="btn btn-danger">Delete Video</button>
+                            <button type="button" class="btn btn-success">Watch Video</button>
+                            <button type="button" class="btn btn-info">Download Video</button>
+                        </div>
                     </div>
                     <hr>
                 </div>
@@ -33,21 +35,23 @@
                     <br>
                     <strong>Type: </strong>{{conversion.conversionType}}
                 </div>
-                <div class="card-body">
-                    <div class="col-sm-12">
+                <div class="row card-body">
+                    <div class="col-sm-6">
                         <ul class="list-group">
                             <li class="list-group-item">Size: {{conversion.fileSize}}</li>
-                            <li class="list-group-item">Complete: {{conversion.finished}}</li>
-                            <li *ngIf="!conversion.finished" class="list-group-item">Active: {{conversion.active}}</li>
+                            <li *ngIf="conversion.finished" class="list-group-item">Complete: Yes</li>
+                            <li *ngIf="!conversion.finished" class="list-group-item">Complete: No</li>
+                            <li *ngIf="!conversion.finished && conversion.active" class="list-group-item">Active: Yes</li>
+                            <li *ngIf="!conversion.finished && !conversion.active" class="list-group-item">Active: No</li>
                             <li *ngIf="!conversion.finished" class="list-group-item">Progress: {{conversion.progress}}</li>
-                            <li class="list-group-item">
-                                <div class="btn-group-vertical btn-block">
-                                    <button type="button" class="btn btn-danger">Delete Video</button>
-                                    <button type="button" class="btn btn-success">Watch Video</button>
-                                    <button type="button" class="btn btn-info">Download Video</button>
-                                </div>
-                            </li>
                         </ul>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="btn-group-vertical btn-block">
+                            <button type="button" class="btn btn-danger">Delete Video</button>
+                            <button type="button" class="btn btn-success">Watch Video</button>
+                            <button type="button" class="btn btn-info">Download Video</button>
+                        </div>
                     </div>
                 </div>
             </div>

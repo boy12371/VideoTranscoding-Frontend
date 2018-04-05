@@ -38,22 +38,9 @@ export class ManageVideosComponent implements OnInit {
     this.router.navigate(['/manage-video/' + originalId]);
 
   }
-  fillCollapse(originalId: number, indexArray: number) {
-    if (this.isCollapsed == false) {
-      this.isCollapsed = !this.isCollapsed;
-    } else if (this.originalVideos[indexArray].conversions != undefined && this.originalVideos[indexArray].conversions.length > 0) {
-      this.isCollapsed = !this.isCollapsed;
-    } else {
-      this.isCollapsed = !this.isCollapsed;
-      console.log("Realizando la peticion para :" + originalId);
-      this.mediaService.getOriginalById(originalId).subscribe(
-        result => {
-          console.log(result);
-          this.originalVideos[indexArray] = result;
-        },
-        error => {
-          console.log(error)
-        })
-    }
+  watchVideo(idRedirect: number, idWatchRedirect: number) {
+    console.log(idRedirect);
+    console.log(idWatchRedirect);
+    this.router.navigate(['/watch-video/' + idRedirect], { queryParams: { idWatch: idWatchRedirect } });
   }
 }

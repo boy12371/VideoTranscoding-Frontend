@@ -9,7 +9,7 @@ import { VgAPI } from 'videogular2/core';
 import { ActivatedRoute } from '@angular/router';
 
 export interface CurrentItem {
-  conversion: Conversion;
+  video: any;
   src: string;
 
 }
@@ -21,31 +21,40 @@ export interface CurrentItem {
 
 })
 export class WatchVideoComponent implements OnInit {
-  originalVideo: Original;
-  currentItemConversion: CurrentItem;
+  conversions: Conversion[] = [];
+  originalVideo: Original = { active: false, complete: true, conversions: this.conversions, originalId: 0, fileSize: "2", name: "", path: "", userVideo: null };
+  currentItemWatching: CurrentItem = { video: null, src: "" };
   api: VgAPI;
-
-  watchId: number;
-  @Input() originalId: number;
+  canEvaluate: boolean;
+  originalIdRedirect: number;
+  @Input() watchId: number;
   constructor(private activatedRoute: ActivatedRoute, private mediaService: MediaService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) {
-    this.watchId = activatedRoute.snapshot.params['id'];
-
+    this.ng4LoadingSpinnerService.show();
+    this.watchId = activatedRoute.snapshot.queryParams['idWatch'];
+    this.originalIdRedirect = activatedRoute.snapshot.params['id'];
   }
   onPlayerReady(api: VgAPI) {
     this.api = api;
-
   }
   ngOnInit() {
-    if (this.originalId == undefined) {
+    if (this.originalIdRedirect == undefined) {
       //LANZAR NOT FOUND
+      console.log("No se ha encontrado original ID, no has sido rederigido correctamente")
     }
-    this.ng4LoadingSpinnerService.show();
     this.getOriginal();
   }
   getOriginal() {
-    this.mediaService.getOriginalById(this.originalId).subscribe(
+    this.mediaService.getOriginalById(this.originalIdRedirect).subscribe(
       result => {
         this.originalVideo = result;
+        if (this.watchId != this.originalVideo.originalId) {
+          this.currentItemWatching.video = this.originalVideo.conversions.find(element => element.conversionId == this.watchId);
+        }
+        else {
+          this.currentItemWatching.video = result;
+        }
+        this.currentItemWatching.src = this.getVideoUrl(this.currentItemWatching.video);
+        this.canEvaluate=true;
         this.ng4LoadingSpinnerService.hide();
       },
       error => {
@@ -55,24 +64,22 @@ export class WatchVideoComponent implements OnInit {
     )
   }
 
-  getVideoUrl(id: number) {
-    return globals.WATCH_URL + id;
+  getVideoUrl(video: any) {
+    if (this.currentItemWatching.video.conversionId != undefined) {
+      return globals.WATCH_URL + this.currentItemWatching.video.conversionId;
+    }
+    return globals.WATCH_URL + this.currentItemWatching.video.originalId;
   }
-  changeSource(newConversion: Conversion) {
-    console.log("Cambiando conversion");
-    console.log("Current item antes");
-    console.log(this.currentItemConversion);
-    this.currentItemConversion.conversion = newConversion;
-    this.currentItemConversion.src = this.getVideoUrl(this.currentItemConversion.conversion.conversionId);
-    console.log("Current Item Despues: ")
-    console.log(this.currentItemConversion);
+  changeSource(newConversionId: number) {
+    if (newConversionId != this.originalVideo.originalId) {
+      this.currentItemWatching.video = this.originalVideo.conversions.find(element => element.conversionId == newConversionId);
+    }
+    else {
+      this.currentItemWatching.video = this.originalVideo;
+    }
+    this.currentItemWatching.src = this.getVideoUrl(this.currentItemWatching.video);
+
   }
-  getSource() {
-    return this.getVideoUrl(this.currentItemConversion.conversion.conversionId);
-  }
-  onClickPlaylistItem(item: Conversion, index: number) {
-    this.currentItemConversion.conversion = item;
-    this.currentItemConversion.src = this.getVideoUrl(this.currentItemConversion.conversion.conversionId);
-  }
+
 
 }
