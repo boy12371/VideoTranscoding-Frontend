@@ -3,23 +3,24 @@
     <div class="row" *ngIf="onConversion && !loading">
         <div class="col-lg-12">
             <div class="card mb-3">
-                <div class="card-header">Conversion status - {{originalOnProgress.name}} - In Progress </div>
+                <div class="card-header">Conversion in Progress -
+                    <strong>{{originalOnProgress.name}}</strong>
+                </div>
                 <div class="card-body table-responsive">
-                    <table class="table table-hover table-striped">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Conversion Type</th>
                                 <th>% Complete</th>
-                                <th>In process</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let conversion of originalOnProgress.conversions">
+                            <tr [class.table-danger]="getErrored(conversion)" [class.table-success]="conversion.finished" [class.table-warning]="conversion.conversionId == conversionOnProgress.conversionId"
+                                *ngFor="let conversion of originalOnProgress.conversions">
                                 <td>{{conversion.name}}</td>
                                 <td>{{conversion.conversionType}}</td>
                                 <td>{{conversion.progress}}</td>
-                                <td>{{conversion.active}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -33,25 +34,37 @@
         </div>
         <hr>
     </div>
-    <div class="row" *ngIf="onConversion && !loading">
-        <div class="col-sm-3">
-            <div class="card text-white bg-success mb-3">
-                <div class="card-header">Original</div>
+
+
+    <div class="row mb-12" *ngIf="onConversion && !loading">
+        <div class="col col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <strong>Original Video - </strong>{{originalOnProgress.name}}
+                    <button (click)="watchVideo(originalOnProgress.originalId,originalOnProgress.originalId)" type="button" class="btn btn-sm btn-success">Watch</button>
+                    <button type="button" class="btn btn-sm btn-info">Download</button>
+                </div>
                 <div class="card-body">
-                    <h6 class="card-title">{{originalOnProgress.name}} - {{originalOnProgress.fileSize}}</h6>
-                    <img class="img-thumbnail" src="../assets/images/cat.jpg" /> </div>
+                    <div *ngFor="let conversion of originalOnProgress.conversions">
+                        <ul *ngIf="conversion.finished" class="list-group">
+                            <li class="list-group-item">
+                                <strong>Conversion -</strong>{{ conversion.name }}
+                                <button (click)="watchVideo(originalOnProgress.originalId,conversion.conversionId)" type="button" class="btn btn-sm btn-success">Watch</button>
+                                <button type="button" class="btn btn-sm btn-info">Download</button>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Type: </strong>{{conversion.conversionType}}
+                            </li>
+                            <hr>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-sm-3" *ngFor="let conversion of conversionsConverted">
-            <div class="card text-white bg-danger mb-3">
-                <div class="card-header">Conversion</div>
-                <div class="card-body">
-                    <h6 class="card-title">{{conversion.name}}- {{conversion.fileSize}}</h6>
-                    <img class="img-thumbnail" src="../assets/images/cat.jpg" /> </div>
-            </div>
-        </div>
-        <hr>
     </div>
+
+
+
     <div class="row" *ngIf="!onConversion && !loading">
         <div class="col-xl-3"></div>
         <div class="col-xl-6">

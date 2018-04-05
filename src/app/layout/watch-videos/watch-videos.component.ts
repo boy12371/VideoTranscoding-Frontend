@@ -50,6 +50,7 @@ export class WatchVideosComponent implements OnInit {
               originalComplete => {
                 this.listOriginalComplete.push(originalComplete);
                 this.currentItemConversion = { conversion: this.listOriginalComplete[0].conversions[0], src: this.getVideoUrl(this.listOriginalComplete[0].conversions[0].conversionId) };
+                this.noListOriginal=false;
                 this.ng4LoadingSpinnerService.hide();
               },
               error => {

@@ -5,6 +5,7 @@ import { Original } from '../../shared/models/original.model';
 import { Conversion } from '../../shared/models/conversion.model';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { Observable, Subscription } from 'rxjs/Rx';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-dashboard',
@@ -22,7 +23,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     interval: Subscription = undefined;
 
-    constructor(private mediaService: MediaService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) {
+    constructor(private router:Router,private mediaService: MediaService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) {
     }
 
     ngOnInit() {
@@ -109,5 +110,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
             this.interval.unsubscribe();
         }
     }
+    getErrored(conversion: Conversion): boolean {
+        if (conversion.fileSize.includes("0.00")) {
+            return true;
+        }
+        else return false;
+    }
+    watchVideo(idRedirect: number, idWatchRedirect: number) {
+        console.log(idRedirect);
+        console.log(idWatchRedirect);
+        this.router.navigate(['/watch-video/' + idRedirect], { queryParams: { idWatch: idWatchRedirect } });
+      }
 
 }

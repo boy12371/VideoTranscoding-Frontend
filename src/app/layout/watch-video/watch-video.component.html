@@ -8,7 +8,7 @@
           {{currentItemWatching.video.name}}
         </div>
         <div class="card-body">
-          <vg-player style="width:50%" (onPlayerReady)="onPlayerReady($event)">
+          <vg-player  (onPlayerReady)="onPlayerReady($event)">
             <video [vgMedia]="media" #media id="singleVideo" preload="auto" [src]="currentItemWatching.src" type="video/mp4" controls></video>
           </vg-player>
         </div>
