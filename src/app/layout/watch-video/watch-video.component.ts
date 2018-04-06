@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Location } from '@angular/common';
 import { routerTransition } from '../../router.animations';
 import { MediaService } from '../../shared/services/media.service';
 import { Original } from '../../shared/models/original.model';
@@ -28,7 +29,7 @@ export class WatchVideoComponent implements OnInit {
   canEvaluate: boolean;
   originalIdRedirect: number;
   @Input() watchId: number;
-  constructor(private activatedRoute: ActivatedRoute, private mediaService: MediaService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) {
+  constructor(private location: Location, private activatedRoute: ActivatedRoute, private mediaService: MediaService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) {
     this.ng4LoadingSpinnerService.show();
     this.watchId = activatedRoute.snapshot.queryParams['idWatch'];
     this.originalIdRedirect = activatedRoute.snapshot.params['id'];
@@ -54,7 +55,7 @@ export class WatchVideoComponent implements OnInit {
           this.currentItemWatching.video = result;
         }
         this.currentItemWatching.src = this.getVideoUrl(this.currentItemWatching.video);
-        this.canEvaluate=true;
+        this.canEvaluate = true;
         this.ng4LoadingSpinnerService.hide();
       },
       error => {
@@ -79,6 +80,9 @@ export class WatchVideoComponent implements OnInit {
     }
     this.currentItemWatching.src = this.getVideoUrl(this.currentItemWatching.video);
 
+  }
+  backToLocation() {
+    this.location.back();
   }
 
 

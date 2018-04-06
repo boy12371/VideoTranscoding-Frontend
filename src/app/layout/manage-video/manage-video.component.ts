@@ -6,7 +6,7 @@ import { HttpResponse, HttpEventType } from '@angular/common/http';
 import { MediaService } from '../../shared/services/media.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { Original } from '../../shared/models/original.model';
-import { Route, ActivatedRoute } from '@angular/router';
+import { Route, ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-manage-video',
   templateUrl: './manage-video.component.html',
@@ -18,12 +18,12 @@ export class ManageVideoComponent {
   originalVideo: Original = null;
   idOriginalVideo: number;
   canEvaluate: boolean;
-  constructor(activatedRoute: ActivatedRoute, private mediaService: MediaService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private mediaService: MediaService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) {
+    this.ng4LoadingSpinnerService.show();
     this.idOriginalVideo = activatedRoute.snapshot.params['id'];
     this.getOriginal();
   }
   getOriginal() {
-    this.ng4LoadingSpinnerService.show();
     this.mediaService.getOriginalById(this.idOriginalVideo).subscribe(
       result => {
         this.originalVideo = result;
@@ -34,6 +34,12 @@ export class ManageVideoComponent {
         console.log(error);
         this.ng4LoadingSpinnerService.hide();
       })
+  }
+  watchVideo(idRedirect: number, idWatchRedirect: number) {
+    this.router.navigate(['/watch-video/' + idRedirect], { queryParams: { idWatch: idWatchRedirect } });
+  }
+  downloadVideo(originalIdDownload: number) {
+    this.mediaService.downloadById(originalIdDownload);
   }
 
 }

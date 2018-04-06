@@ -20,10 +20,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     conversionOnProgress: Conversion;
     onConversion: boolean = false;
     loading: boolean = false;
+    noConnecction: boolean;
 
     interval: Subscription = undefined;
 
-    constructor(private router:Router,private mediaService: MediaService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) {
+    constructor(private router: Router, private mediaService: MediaService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) {
     }
 
     ngOnInit() {
@@ -33,23 +34,32 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     getAllMedia() {
-        console.log("Realizando peticion para todos los objetos ")
         this.mediaService.getAllMedia().subscribe(
             result => {
                 this.originalVideos = result;
                 this.getOnProgress();
             },
             error => {
-                console.log(error);
-                this.ng4LoadingSpinnerService.hide();
-                this.loading = false;
+                if (error.status == 0) {
+                    this.noConnecction = true;
+                    this.ng4LoadingSpinnerService.hide();
+
+                } else if (error.status == 404) {
+                    this.loading = false;
+                    this.ng4LoadingSpinnerService.hide();
+                }
+                if (this.interval == undefined) {
+                    this.interval = Observable.interval(60000).subscribe(x => {
+                        this.ngOnInit();
+                    });
+                }
             })
     }
     getOnProgress(): any {
         for (let element of this.originalVideos) {
-            console.log("Comparando objeto: " + element.name + " y su valor es: " + element.active)
+            //console.log("Comparando objeto: " + element.name + " y su valor es: " + element.active)
             if (element.active == true) {
-                console.log("Conversion Activa: " + element.originalId)
+                // console.log("Conversion Activa: " + element.originalId)
                 this.originalOnProgress = element;
                 this.onConversion = true;
                 this.updateOnConversion();
@@ -67,7 +77,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
     }
     updateOnConversion() {
-        console.log("Realizando peticion de un solo objeto");
         if (this.originalOnProgress.active) {
             this.mediaService.getOriginalById(this.originalOnProgress.originalId).subscribe(
                 result => {
@@ -117,9 +126,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
         else return false;
     }
     watchVideo(idRedirect: number, idWatchRedirect: number) {
-        console.log(idRedirect);
-        console.log(idWatchRedirect);
         this.router.navigate(['/watch-video/' + idRedirect], { queryParams: { idWatch: idWatchRedirect } });
-      }
+    }
+    downloadVideo(idDownload: number) {
+        this.mediaService.downloadById(idDownload);
+    }
 
 }

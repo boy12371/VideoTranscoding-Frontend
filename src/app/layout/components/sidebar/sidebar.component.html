@@ -3,19 +3,16 @@
         <a routerLink="/dashboard" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-dashboard"></i>&nbsp;Dashboard
         </a>
-        <a [routerLink]="['/manage-videos']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-list-ol"></i>&nbsp;Manage Videos
-        </a>
         <a [routerLink]="['/upload-videos']" [routerLinkActive]="['router-link-active']" class="list-group-item">
             <i class="fa fa-fw fa-upload"></i>&nbsp;Upload Videos
         </a>
-        <a [routerLink]="['/watch-videos']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-            <i class="fa fa-fw fa-television"></i>&nbsp;Watch Videos
+        <a [routerLink]="['/manage-videos']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-list-ol"></i>&nbsp;Manage Videos
         </a>
         <div class="header-fields">
             <a (click)="rltAndLtr()" class="list-group-item">
                 <span>
-                    <i class="fa fa-arrows-h"></i>&nbsp; Rrl/Ltr</span>
+                    <i class="fa fa-arrows-h"></i>&nbsp; Rtl/Ltr</span>
             </a>
             <div class="nested-menu">
                 <a class="list-group-item" (click)="addExpandClass('profile')">
@@ -35,12 +32,28 @@
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
-                                    <div class="modal-body">
-                                        <p>One fine body&hellip;</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
-                                    </div>
+                                    <form [formGroup]="editProfile" (ngSubmit)="onSubmit(editProfile)">
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <input type="text" id="nick" formControlName="nick" name="nick" class="form-control input-underline input-lg" placeholder="{{userLogged.nick}}">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" id="nick" formControlName="email" name="email" class="form-control input-underline input-lg" placeholder="{{userLogged.email}}">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" formControlName="userPassword" id="password" name="password" class="form-control input-underline input-lg"
+                                                    placeholder="Mandatory Password">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" formControlName="passwordRepeat" id="password" name="password" class="form-control input-underline input-lg"
+                                                    placeholder="Repeat Password">
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-success" [disabled]="editProfile.invalid">Update</button>
+                                            <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+                                        </div>
+                                    </form>
                                 </ng-template>
                             </a>
                         </li>
@@ -54,6 +67,5 @@
                 </li>
             </div>
         </div>
-
     </div>
 </nav>

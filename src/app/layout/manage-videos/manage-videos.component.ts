@@ -39,8 +39,9 @@ export class ManageVideosComponent implements OnInit {
 
   }
   watchVideo(idRedirect: number, idWatchRedirect: number) {
-    console.log(idRedirect);
-    console.log(idWatchRedirect);
     this.router.navigate(['/watch-video/' + idRedirect], { queryParams: { idWatch: idWatchRedirect } });
+  }
+  downloadVideo(originalIdDownload: number) {
+    this.mediaService.downloadById(originalIdDownload);
   }
 }

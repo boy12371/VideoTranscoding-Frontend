@@ -1,17 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { LayoutRoutingModule } from './layout-routing.module';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { LayoutComponent } from './layout.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
     imports: [
         CommonModule,
         LayoutRoutingModule,
         NgbDropdownModule.forRoot(),
+        ReactiveFormsModule,
+        FormsModule,
+        NgbModule.forRoot()
     ],
     declarations: [LayoutComponent, SidebarComponent, HeaderComponent]
 })

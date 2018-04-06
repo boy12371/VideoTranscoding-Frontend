@@ -40,20 +40,22 @@
         <div class="col col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <strong>Original Video - </strong>{{originalOnProgress.name}}
+                    <strong>Original Video - </strong>{{originalOnProgress.name}}<br>
                     <button (click)="watchVideo(originalOnProgress.originalId,originalOnProgress.originalId)" type="button" class="btn btn-sm btn-success">Watch</button>
-                    <button type="button" class="btn btn-sm btn-info">Download</button>
+                    <button (click)="downloadVideo(originalOnProgress.originalId)" type="button" class="btn btn-sm btn-info">Download</button>
                 </div>
                 <div class="card-body">
                     <div *ngFor="let conversion of originalOnProgress.conversions">
                         <ul *ngIf="conversion.finished" class="list-group">
                             <li class="list-group-item">
                                 <strong>Conversion -</strong>{{ conversion.name }}
-                                <button (click)="watchVideo(originalOnProgress.originalId,conversion.conversionId)" type="button" class="btn btn-sm btn-success">Watch</button>
-                                <button type="button" class="btn btn-sm btn-info">Download</button>
                             </li>
                             <li class="list-group-item">
                                 <strong>Type: </strong>{{conversion.conversionType}}
+                            </li>
+                            <li class="list-group-item">
+                                <button (click)="watchVideo(originalOnProgress.originalId,conversion.conversionId)" type="button" class="btn btn-sm btn-success">Watch</button>
+                                <button (click)="downloadVideo(conversion.conversionId)" type="button" class="btn btn-sm btn-info">Download</button>
                             </li>
                             <hr>
                         </ul>
@@ -77,5 +79,15 @@
             <div class="col-xl-3"></div>
         </div>
     </div>
+    <div class="row" *ngIf="noConnecction">
+        <div class="col-xl-3"></div>
+        <div class="col-xl-6">
+            <div class="alert alert-info">
+                <strong>Oh!</strong> No connection with the backend on this moment.
+            </div>
+            <div class="col-xl-3"></div>
+        </div>
+    </div>
+
 </div>
 <ng4-loading-spinner></ng4-loading-spinner>

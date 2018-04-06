@@ -20,8 +20,8 @@
                     <div class="col-sm-6">
                         <div class="btn-group-vertical btn-block">
                             <button type="button" class="btn btn-danger">Delete Video</button>
-                            <button type="button" class="btn btn-success">Watch Video</button>
-                            <button type="button" class="btn btn-info">Download Video</button>
+                            <button (click)="watchVideo(originalVideo.originalId,originalVideo.originalId)" type="button" class="btn btn-success">Watch Video</button>
+                            <button (click)="downloadVideo(originalVideo.originalId)" type="button" class="btn btn-info">Download Video</button>
                         </div>
                     </div>
                     <hr>
@@ -49,8 +49,8 @@
                     <div class="col-sm-6">
                         <div class="btn-group-vertical btn-block">
                             <button type="button" class="btn btn-danger">Delete Video</button>
-                            <button type="button" class="btn btn-success">Watch Video</button>
-                            <button type="button" class="btn btn-info">Download Video</button>
+                            <button (click)="watchVideo(originalVideo.originalId,conversion.conversionId)" type="button" class="btn btn-success">Watch Video</button>
+                            <button (click)="downloadVideo(conversion.conversionId)" type="button" class="btn btn-info">Download Video</button>
                         </div>
                     </div>
                 </div>
@@ -58,4 +58,5 @@
         </div>
         <hr>
     </div>
-    <ng4-loading-spinner></ng4-loading-spinner>
+</div>
+<ng4-loading-spinner></ng4-loading-spinner>

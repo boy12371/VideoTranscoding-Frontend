@@ -18,11 +18,11 @@ export class MediaService {
         return this._http.get(globals.MEDIA_URL);
     }
     getOriginalById(id: number): Observable<any> {
-        console.log("Enviuando peticion");
-
-        console.log("Enviuando peticion con id"+id);
-        const url=globals.MEDIA_URL + '/' + id;
+        const url = globals.MEDIA_URL + '/' + id;
         return this._http.get(url);
     }
-
+    downloadById(id: number) {
+        const url = globals.DOWNLOAD_URL + id;
+        window.location.replace(url);
+    }
 }

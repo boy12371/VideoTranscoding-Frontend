@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { routerTransition } from '../router.animations';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../shared/services/user.service'
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
@@ -13,6 +13,8 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 })
 
 export class LoginComponent implements OnInit {
+    userLogin: UserLogin;
+    loginForm: FormGroup;
     error_login: boolean;
     model = {
         nick: "",
@@ -20,13 +22,19 @@ export class LoginComponent implements OnInit {
     }
     constructor(public router: Router, private userService: UserService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) { }
     ngOnInit() {
+        this.loginForm = new FormGroup({
+            nick: new FormControl('', Validators.required),
+            password: new FormControl('', Validators.required),
+        })
 
     }
-    logIn(username: string, password: string, event: Event) {
-        event.preventDefault();
-        this.ng4LoadingSpinnerService.show();
+
+    onSubmit(form: FormGroup) {
         this.error_login = false;
-        this.userService.loginUser(username, password).subscribe(result => {
+        this.ng4LoadingSpinnerService.show();
+        let valuesForm: any = form.value;
+        this.userLogin = valuesForm;
+        this.userService.loginUser(this.userLogin.nick, this.userLogin.password).subscribe(result => {
             this.userService.setUserLogged(result);
             this.router.navigate(['/dashboard']);
             this.ng4LoadingSpinnerService.hide();
@@ -34,6 +42,9 @@ export class LoginComponent implements OnInit {
             this.error_login = true;
             this.ng4LoadingSpinnerService.hide();
         });
-
     }
+}
+export interface UserLogin {
+    nick: string;
+    password: string;
 }
