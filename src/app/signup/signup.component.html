@@ -2,12 +2,12 @@
     <div class="row justify-content-md-center">
         <div class="col-md-4">
             <img id="videoTranscodingLogo" src="assets/images/VideoTranscoding_white_logo.png" />
-            <form role="form" [formGroup]="signupForm" (ngSubmit)="onSubmit(signupForm)">
-                <div class="form-content">
+            <form role="form" [formGroup]="signupForm" #formDir="ngForm" (ngSubmit)="onSubmit(signupForm)">
+                <div [hidden]="formDir.submitted" class="form-content">
                     <div class="form-group">
                         <input type="text" class="form-control input-underline input-lg" formControlName="nick" placeholder="Nick">
-                        <div *ngIf="signupForm.controls['nick'].touched && !signupForm.controls['nick'].valid">
-                            <span *ngIf="signupForm.controls['nick'].hasError('required') ">
+                        <div *ngIf="signupForm.controls['nick'].invalid && (signupForm.controls['nick'].dirty || signupForm.controls['nick'].touched)">
+                            <span *ngIf="signupForm.controls['nick'].errors.required">
                                 Nick is required
                             </span>
                         </div>
@@ -15,30 +15,30 @@
 
                     <div class="form-group">
                         <input type="text" class="form-control input-underline input-lg" formControlName="email" placeholder="Email">
-                        <div *ngIf="signupForm.controls['email'].touched && !signupForm.controls['email'].valid">
-                            <span *ngIf="signupForm.controls['email'].hasError('email') ">
+                        <div *ngIf="signupForm.controls['email'].invalid && (signupForm.controls['email'].dirty || signupForm.controls['email'].touched)">
+                            <span *ngIf="signupForm.controls['email'].errors.email">
                                 Not is a email
                             </span>
                         </div>
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control input-underline input-lg" formControlName="userPassword" placeholder="Password">
-                        <div *ngIf="signupForm.controls['userPassword'].touched && !signupForm.controls['userPassword'].valid">
-                            <span *ngIf="signupForm.controls['userPassword'].hasError('required') ">
+                        <div *ngIf="signupForm.controls['userPassword'].invalid && (signupForm.controls['userPassword'].dirty || signupForm.controls['userPassword'].touched)">
+                            <span *ngIf="signupForm.controls['userPassword'].errors.required">
                                 Password is required
                             </span>
-                            <span *ngIf="signupForm.controls['userPassword'].hasError('minlength') ">
+                            <span *ngIf="signupForm.controls['userPassword'].errors.minlength">
                                 Min length is 8
                             </span>
                         </div>
                     </div>
                     <div class="form-group">
                         <input type="password" class="form-control input-underline input-lg" formControlName="passwordRepeat" placeholder="Repeat Password">
-                        <div *ngIf="signupForm.controls['passwordRepeat'].touched && !signupForm.controls['passwordRepeat'].valid">
-                            <span *ngIf="signupForm.controls['passwordRepeat'].hasError('required') ">
+                        <div *ngIf="signupForm.controls['passwordRepeat'].invalid && (signupForm.controls['passwordRepeat'].dirty || signupForm.controls['passwordRepeat'].touched)">
+                            <span *ngIf="signupForm.controls['passwordRepeat'].errors.required">
                                 Repeat password is required
                             </span>
-                            <span *ngIf="signupForm.controls['passwordRepeat'].invalid ">
+                            <span *ngIf="signupForm.controls['passwordRepeat'].invalid">
                                 The passwords are not the same </span>
                         </div>
                     </div>

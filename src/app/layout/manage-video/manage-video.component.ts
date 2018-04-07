@@ -7,6 +7,7 @@ import { MediaService } from '../../shared/services/media.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { Original } from '../../shared/models/original.model';
 import { Route, ActivatedRoute, Router } from '@angular/router';
+import { Conversion } from '../../shared/models/conversion.model';
 @Component({
   selector: 'app-manage-video',
   templateUrl: './manage-video.component.html',
@@ -40,6 +41,13 @@ export class ManageVideoComponent {
   }
   downloadVideo(originalIdDownload: number) {
     this.mediaService.downloadById(originalIdDownload);
+  }
+  getErrored(conversion: Conversion): boolean {
+    return this.mediaService.getErroredOnConversion(conversion);
+  }
+  canPlay(video:any):boolean{
+    return this.mediaService.canPlayVideo(video);
+
   }
 
 }

@@ -71,9 +71,11 @@ export class WatchVideoComponent implements OnInit {
     }
     return globals.WATCH_URL + this.currentItemWatching.video.originalId;
   }
-  changeSource(newConversionId: number) {
+  changeSource(newConversionId: number): any {
     if (newConversionId != this.originalVideo.originalId) {
-      this.currentItemWatching.video = this.originalVideo.conversions.find(element => element.conversionId == newConversionId);
+      let video = this.originalVideo.conversions.find(element => element.conversionId == newConversionId);
+      if (!this.getErrored(video))
+        this.currentItemWatching.video = video;
     }
     else {
       this.currentItemWatching.video = this.originalVideo;
@@ -84,6 +86,8 @@ export class WatchVideoComponent implements OnInit {
   backToLocation() {
     this.location.back();
   }
-
+  getErrored(conversion: Conversion): boolean {
+    return this.mediaService.getErroredOnConversion(conversion);
+  }
 
 }

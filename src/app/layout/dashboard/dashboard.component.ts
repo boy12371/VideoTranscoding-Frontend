@@ -17,28 +17,26 @@ export class DashboardComponent implements OnInit, OnDestroy {
     originalVideos: Array<Original> = [];
     originalOnProgress: Original = { originalId: 0, name: "", path: "", userVideo: null, fileSize: "", conversions: null, complete: false, active: false };
     conversionsConverted: Array<Conversion> = [];
-    conversionOnProgress: Conversion;
+    conversionOnProgress: Conversion = { active: false, fileSize: "", finished: false, name: "", conversionId: 0, conversionType: null, parent: null, path: "", progress: "" };
     onConversion: boolean = false;
     loading: boolean = false;
     noConnecction: boolean;
 
     interval: Subscription = undefined;
-    sum: number = 0;
     constructor(private router: Router, private mediaService: MediaService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) {
     }
 
     ngOnInit() {
         this.ng4LoadingSpinnerService.show();
         this.loading = true;
-        this.getAllMedia(this.sum);
+        this.getAllMedia();
     }
 
-    getAllMedia(sum: number) {
-        this.mediaService.getAllMediaByPageableForDashboard(sum).subscribe(
+    getAllMedia() {
+        this.mediaService.getAllMediaByPageableForDashboard(0).subscribe(
             result => {
-                this.originalVideos.push(result);
-                this.getAllMedia(this.sum + 1);
-                this.getOnProgress();
+                this.originalVideos = result;
+                this.getOnProgress()
             },
             error => {
                 if (error.status == 0) {
@@ -58,7 +56,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
     getOnProgress(): any {
         for (let element of this.originalVideos) {
-            //console.log("Comparando objeto: " + element.name + " y su valor es: " + element.active)
+            console.log("Comparando objeto: " + element.name + " y su valor es: " + element.active)
             if (element.active == true) {
                 // console.log("Conversion Activa: " + element.originalId)
                 this.originalOnProgress = element;
@@ -97,6 +95,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
                         })
 
                     if (this.interval == undefined) {
+                        console.log("Definiiendo el intervalor cada 2 segundos")
                         this.interval = Observable.interval(2000).subscribe(x => {
                             this.updateOnConversion();
                         });
@@ -121,16 +120,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
     }
     getErrored(conversion: Conversion): boolean {
-        if (conversion.fileSize.includes("0.00")) {
-            return true;
-        }
-        else return false;
+        return this.mediaService.getErroredOnConversion(conversion);
     }
     watchVideo(idRedirect: number, idWatchRedirect: number) {
         this.router.navigate(['/watch-video/' + idRedirect], { queryParams: { idWatch: idWatchRedirect } });
     }
     downloadVideo(idDownload: number) {
         this.mediaService.downloadById(idDownload);
+    }
+    canPlay(video: any): boolean {
+        return this.mediaService.canPlayVideo(video);
+
     }
 
 }

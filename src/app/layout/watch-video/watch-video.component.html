@@ -27,10 +27,10 @@
             <strong>Original: </strong>
             <a (click)="changeSource(originalVideo.originalId)">{{originalVideo.name}}</a>
           </li>
-          <li *ngFor="let conversion of originalVideo.conversions" [class.active]="conversion.conversionId == currentItemWatching.video.conversionId"
+          <li *ngFor="let conversion of originalVideo.conversions"  [style.cursor]="getErrored(conversion) == true ? 'default' : 'pointer'" [style.color]="getErrored(conversion) == true ? 'red' : null" [class.active]="conversion.conversionId == currentItemWatching.video.conversionId"
             class="list-group-item">
             <strong>Conversion: </strong>
-            <a (click)="changeSource(conversion.conversionId)">{{ conversion.name }}</a>
+            <a  (click)="changeSource(conversion.conversionId)">{{ conversion.name }}</a>
             <strong>Type: </strong>{{conversion.conversionType}}
           </li>
         </ul>

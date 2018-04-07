@@ -25,12 +25,16 @@ export class UserService {
     deleteUserLogged() {
         this._http.sessionData.reset();
     }
-    getLoggedUser():User{
-       return this._http.sessionData.getUserLogged();
+    getLoggedUser(): User {
+        return this._http.sessionData.getUserLogged();
     }
-    registerUser(user: UserRegister):any {
-        var url=globals.USER_REGISTER;
-        return this._http.post(url,user);
+    registerUser(user: UserRegister): any {
+        var url = globals.USER_REGISTER;
+        return this._http.post(url, user);
+    }
+    editUser(user: any): Observable<any> {
+
+        return null;
     }
     private generateAuthString(username: String, password: String) {
         return 'Basic ' + btoa(username + ':' + password);

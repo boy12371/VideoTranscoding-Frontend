@@ -40,8 +40,9 @@
         <div class="col col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <strong>Original Video - </strong>{{originalOnProgress.name}}<br>
-                    <button (click)="watchVideo(originalOnProgress.originalId,originalOnProgress.originalId)" type="button" class="btn btn-sm btn-success">Watch</button>
+                    <strong>Original Video - </strong>{{originalOnProgress.name}}
+                    <br>
+                    <button [disabled]="!canPlay(originalOnProgress)" (click)="watchVideo(originalOnProgress.originalId,originalOnProgress.originalId)" type="button" class="btn btn-sm btn-success">Watch</button>
                     <button (click)="downloadVideo(originalOnProgress.originalId)" type="button" class="btn btn-sm btn-info">Download</button>
                 </div>
                 <div class="card-body">
@@ -54,7 +55,7 @@
                                 <strong>Type: </strong>{{conversion.conversionType}}
                             </li>
                             <li class="list-group-item">
-                                <button (click)="watchVideo(originalOnProgress.originalId,conversion.conversionId)" type="button" class="btn btn-sm btn-success">Watch</button>
+                                <button [disabled]="!canPlay(conversion) || getErrored(conversion)" (click)="watchVideo(originalOnProgress.originalId,conversion.conversionId)" type="button" class="btn btn-sm btn-success">Watch</button>
                                 <button (click)="downloadVideo(conversion.conversionId)" type="button" class="btn btn-sm btn-info">Download</button>
                             </li>
                             <hr>

@@ -17,15 +17,12 @@ import { Router } from '@angular/router';
 export class ManageVideosComponent implements OnInit {
   originalVideos: Array<Original> = [];
   isCollapsed = true;
-  stopScroll = false;
-  finished = false;
   sum: number;
+  finished: boolean;
   constructor(private router: Router, private mediaService: MediaService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) {
 
   }
   ngOnInit() {
-    this.stopScroll = false;
-    this.finished = false;
     this.sum = 0;
     this.ng4LoadingSpinnerService.show();
     this.mediaService.getAllMediaByPageable(this.sum).subscribe(
@@ -39,22 +36,26 @@ export class ManageVideosComponent implements OnInit {
       })
   }
   onScroll() {
-    this.ng4LoadingSpinnerService.show();
-    if (this.finished || this.stopScroll) { return; }
-    this.stopScroll = true;
-    this.sum += 1;
-    this.mediaService.getAllMediaByPageable(this.sum).subscribe(
-      films => {
-        films.forEach((itm) => {
-          this.originalVideos.push(itm);
-          this.stopScroll = false;
+    if (!this.finished) {
+      this.ng4LoadingSpinnerService.show();
+      this.sum += 1;
+      this.mediaService.getAllMediaByPageable(this.sum).subscribe(
+        videos => {
+          if (videos.length < 9) {
+            this.finished = true;
+          }
+          videos.forEach(element => {
+            this.originalVideos.push(element);
+          });
+          this.ng4LoadingSpinnerService.hide();
+        },
+        error => {
+          if (error.status = 404) {
+            this.finished = true;
+          }
+          this.ng4LoadingSpinnerService.hide();
         });
-        this.ng4LoadingSpinnerService.hide();
-      },
-      error => {
-        //console.log(error);
-        this.ng4LoadingSpinnerService.hide();
-      });
+    }
   }
   goToConversion(originalId: number) {
     console.log("Navegando a originalId");
@@ -66,5 +67,22 @@ export class ManageVideosComponent implements OnInit {
   }
   downloadVideo(originalIdDownload: number) {
     this.mediaService.downloadById(originalIdDownload);
+  }
+  canPlay(video: any): boolean {
+    return this.mediaService.canPlayVideo(video);
+
+  }
+  deleteVideo(video: Original) {
+    this.ng4LoadingSpinnerService.show();
+    this.mediaService.deleteVideo(
+      video.originalId).subscribe(
+        result => {
+          this.ngOnInit();
+          console.log(result)
+        },
+        error => {
+          console.log(error)
+          this.ng4LoadingSpinnerService.hide();
+        })
   }
 }

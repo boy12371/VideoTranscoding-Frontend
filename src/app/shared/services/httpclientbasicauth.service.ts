@@ -40,6 +40,9 @@ export class HttpClientBasicAuth {
             headers: this.generateHeaders()
         });
     }
+    delete(url) {
+        return this.http.delete(url, { headers: this.generateHeaders() })
+    }
 
     sendConversion(url: string, formdata: FormData) {
         const req = new HttpRequest('POST', url, formdata, {

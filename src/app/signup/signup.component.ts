@@ -13,23 +13,24 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
     animations: [routerTransition()]
 })
 export class SignupComponent implements OnInit {
+    canEvaluate:boolean;
     userRegister: UserRegister;
     signupForm: FormGroup;
     error_signUp: boolean;
     registedAndLogin: boolean;
     constructor(public router: Router, private userService: UserService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) { }
 
-    register() { }
-    ngOnInit() {
+    ngOnInit():void {
         this.signupForm = new FormGroup({
-            nick: new FormControl('', Validators.required),
-            email: new FormControl('', Validators.email),
+            nick: new FormControl(null, Validators.required),
+            email: new FormControl(null, Validators.email),
             userPassword: new FormControl('', [
                 Validators.required,
                 Validators.minLength(8)
             ]),
             passwordRepeat: new FormControl('', [Validators.required, matchOtherValidator('userPassword')])
         })
+        this.canEvaluate=true;
     }
     onSubmit(form: FormGroup) {
         this.ng4LoadingSpinnerService.show();
