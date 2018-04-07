@@ -1,4 +1,4 @@
-<div [@routerTransition]>
+<div [@routerTransition] infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="800" (scrolled)="onScroll()">
     <app-page-header [heading]="'Manage Videos'" [icon]="'fa fa-fw fa-list-ol'"></app-page-header>
     <div class="row">
         <div class="col-lg-4" *ngFor="let original of originalVideos">

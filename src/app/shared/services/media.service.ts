@@ -14,8 +14,11 @@ export class MediaService {
     getTypeExpert(): Observable<any> {
         return this._http.get(globals.CONVERSION_EXPERT_URL);
     }
-    getAllMedia(): Observable<any> {
-        return this._http.get(globals.MEDIA_URL);
+    getAllMediaByPageable(page: number): Observable<any> {
+        return this._http.get(globals.MEDIA_URL + '?page=' + String(page) + '&size=9');
+    }
+    getAllMediaByPageableForDashboard(page: number): Observable<any> {
+        return this._http.get(globals.MEDIA_URL + '?page=' + String(page) + '&size=50');
     }
     getOriginalById(id: number): Observable<any> {
         const url = globals.MEDIA_URL + '/' + id;

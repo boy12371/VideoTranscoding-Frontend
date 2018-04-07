@@ -17,13 +17,18 @@ import { Router } from '@angular/router';
 export class ManageVideosComponent implements OnInit {
   originalVideos: Array<Original> = [];
   isCollapsed = true;
-
+  stopScroll = false;
+  finished = false;
+  sum: number;
   constructor(private router: Router, private mediaService: MediaService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) {
 
   }
   ngOnInit() {
+    this.stopScroll = false;
+    this.finished = false;
+    this.sum = 0;
     this.ng4LoadingSpinnerService.show();
-    this.mediaService.getAllMedia().subscribe(
+    this.mediaService.getAllMediaByPageable(this.sum).subscribe(
       result => {
         this.originalVideos = result;
         this.ng4LoadingSpinnerService.hide();
@@ -32,6 +37,24 @@ export class ManageVideosComponent implements OnInit {
         console.log(error);
         this.ng4LoadingSpinnerService.hide();
       })
+  }
+  onScroll() {
+    this.ng4LoadingSpinnerService.show();
+    if (this.finished || this.stopScroll) { return; }
+    this.stopScroll = true;
+    this.sum += 1;
+    this.mediaService.getAllMediaByPageable(this.sum).subscribe(
+      films => {
+        films.forEach((itm) => {
+          this.originalVideos.push(itm);
+          this.stopScroll = false;
+        });
+        this.ng4LoadingSpinnerService.hide();
+      },
+      error => {
+        //console.log(error);
+        this.ng4LoadingSpinnerService.hide();
+      });
   }
   goToConversion(originalId: number) {
     console.log("Navegando a originalId");

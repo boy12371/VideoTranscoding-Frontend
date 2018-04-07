@@ -23,20 +23,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
     noConnecction: boolean;
 
     interval: Subscription = undefined;
-
+    sum: number = 0;
     constructor(private router: Router, private mediaService: MediaService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) {
     }
 
     ngOnInit() {
         this.ng4LoadingSpinnerService.show();
         this.loading = true;
-        this.getAllMedia();
+        this.getAllMedia(this.sum);
     }
 
-    getAllMedia() {
-        this.mediaService.getAllMedia().subscribe(
+    getAllMedia(sum: number) {
+        this.mediaService.getAllMediaByPageableForDashboard(sum).subscribe(
             result => {
-                this.originalVideos = result;
+                this.originalVideos.push(result);
+                this.getAllMedia(this.sum + 1);
                 this.getOnProgress();
             },
             error => {
