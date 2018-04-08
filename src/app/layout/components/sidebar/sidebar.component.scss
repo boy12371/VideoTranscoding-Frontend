@@ -27,6 +27,7 @@ $topnav-background-color: #1A2930;
             border-radius: 0;
             color: #999;
             text-decoration: none;
+            outline:0;
             .fa {
                 margin-right: 10px;
             }
@@ -61,7 +62,7 @@ $topnav-background-color: #1A2930;
             height: 50px;
             margin-bottom: 0;
             a {
-                color: #999;
+                color: #1A2930;
                 text-decoration: none;
                 font-weight: 400;
                 background: $topnav-background-color;
@@ -75,7 +76,7 @@ $topnav-background-color: #1A2930;
             a:hover,
             a:focus {
                 color: #fff;
-                outline: none;
+                outline: 0;
                 outline-offset: -2px;
             }
         }

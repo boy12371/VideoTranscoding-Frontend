@@ -19,6 +19,7 @@ export class ManageVideosComponent implements OnInit {
   isCollapsed = true;
   sum: number;
   finished: boolean;
+  noVideos:boolean;
   constructor(private router: Router, private mediaService: MediaService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) {
 
   }
@@ -31,6 +32,10 @@ export class ManageVideosComponent implements OnInit {
         this.ng4LoadingSpinnerService.hide();
       },
       error => {
+        if (error.status = 404) {
+          this.finished = true;
+          this.noVideos=true;
+        }
         console.log(error);
         this.ng4LoadingSpinnerService.hide();
       })

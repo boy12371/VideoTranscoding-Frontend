@@ -10,9 +10,11 @@
                             <span *ngIf="signupForm.controls['nick'].errors.required">
                                 Nick is required
                             </span>
+                            <span *ngIf="signupForm.controls['nick'].errors.minlength">
+                                Min length is 5
+                            </span>
                         </div>
                     </div>
-
                     <div class="form-group">
                         <input type="text" class="form-control input-underline input-lg" formControlName="email" placeholder="Email">
                         <div *ngIf="signupForm.controls['email'].invalid && (signupForm.controls['email'].dirty || signupForm.controls['email'].touched)">

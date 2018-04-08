@@ -15,9 +15,8 @@
                         <strong>Oh !</strong> Nick or Password are incorrect.
                     </div>
                 </div>
+                <button type="button" class="btn rounded-btn" [routerLink]="['/signup']">Register</button>
                 <button class="btn rounded-btn" [disabled]="loginForm.invalid" type="submit"> Log in </button>
-                &nbsp;
-                <button class="btn rounded-btn" [routerLink]="['/signup']">Register</button>
             </form>
         </div>
     </div>
