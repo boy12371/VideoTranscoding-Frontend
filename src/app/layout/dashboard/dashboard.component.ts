@@ -6,6 +6,7 @@ import { Conversion } from '../../shared/models/conversion.model';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 import { Observable, Subscription } from 'rxjs/Rx';
 import { Router } from '@angular/router';
+import { UserService } from '../../shared/services/user.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -20,10 +21,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     conversionOnProgress: Conversion = { active: false, fileSize: "", finished: false, name: "", conversionId: 0, conversionType: null, parent: null, path: "", progress: "" };
     onConversion: boolean = false;
     loading: boolean = false;
-    noConnecction: boolean;
 
     interval: Subscription = undefined;
-    constructor(private router: Router, private mediaService: MediaService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) {
+    constructor(private router: Router, private userService: UserService, private mediaService: MediaService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) {
     }
 
     ngOnInit() {
@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.getAllMedia();
     }
 
-    getAllMedia() {
+    getAllMedia(): any {
         this.mediaService.getAllMediaByPageableForDashboard(0).subscribe(
             result => {
                 this.originalVideos = result;
@@ -40,9 +40,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
             },
             error => {
                 if (error.status == 0) {
-                    this.noConnecction = true;
+                    this.userService.deleteUserLogged();
+                    this.router.navigate(['/login']);
                     this.ng4LoadingSpinnerService.hide();
-
+                    return null;
                 } else if (error.status == 404) {
                     this.loading = false;
                     this.ng4LoadingSpinnerService.hide();

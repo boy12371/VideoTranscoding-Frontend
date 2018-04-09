@@ -46,7 +46,7 @@
                     <button (click)="downloadVideo(originalOnProgress.originalId)" type="button" class="btn btn-sm btn-info">Download</button>
                 </div>
                 <div class="card-body">
-                    <div *ngFor="let conversion of originalOnProgress.conversions">
+                    <div *ngFor="let conversion of originalOnProgress.conversions | async">
                         <ul *ngIf="conversion.finished" class="list-group">
                             <li class="list-group-item">
                                 <strong>Conversion -</strong>{{ conversion.name }}
@@ -65,9 +65,6 @@
             </div>
         </div>
     </div>
-
-
-
     <div class="row" *ngIf="!onConversion && !loading">
         <div class="col-xl-3"></div>
         <div class="col-xl-6">
@@ -80,15 +77,5 @@
             <div class="col-xl-3"></div>
         </div>
     </div>
-    <div class="row" *ngIf="noConnecction">
-        <div class="col-xl-3"></div>
-        <div class="col-xl-6">
-            <div class="alert alert-info">
-                <strong>Oh!</strong> No connection with the backend on this moment.
-            </div>
-            <div class="col-xl-3"></div>
-        </div>
-    </div>
-
 </div>
 <ng4-loading-spinner></ng4-loading-spinner>
