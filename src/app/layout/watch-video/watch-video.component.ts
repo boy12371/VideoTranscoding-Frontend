@@ -48,8 +48,14 @@ export class WatchVideoComponent implements OnInit {
     this.mediaService.getOriginalById(this.originalIdRedirect).subscribe(
       result => {
         this.originalVideo = result;
+        this.originalVideo.conversions.forEach(element => {
+          if (element.finished == true) {
+            this.conversions.push(element);
+          }
+
+        });
         if (this.watchId != this.originalVideo.originalId) {
-          this.currentItemWatching.video = this.originalVideo.conversions.find(element => element.conversionId == this.watchId);
+          this.currentItemWatching.video = this.conversions.find(element => element.conversionId == this.watchId);
         }
         else {
           this.currentItemWatching.video = result;
@@ -73,11 +79,11 @@ export class WatchVideoComponent implements OnInit {
   }
   changeSource(newConversionId: number): any {
     if (newConversionId != this.originalVideo.originalId) {
-      let video = this.originalVideo.conversions.find(element => element.conversionId == newConversionId);
-      if (!this.getErrored(video))
+      let video = this.conversions.find(element => element.conversionId == newConversionId);
+      if (!this.getErrored(video) && this.canPlay(video))
         this.currentItemWatching.video = video;
     }
-    else {
+    else if (this.canPlay(this.originalVideo)) {
       this.currentItemWatching.video = this.originalVideo;
     }
     this.currentItemWatching.src = this.getVideoUrl(this.currentItemWatching.video);
@@ -88,6 +94,9 @@ export class WatchVideoComponent implements OnInit {
   }
   getErrored(conversion: Conversion): boolean {
     return this.mediaService.getErroredOnConversion(conversion);
+  }
+  canPlay(video: any): boolean {
+    return this.mediaService.canPlayVideo(video);
   }
 
 }

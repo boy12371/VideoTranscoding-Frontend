@@ -30,14 +30,18 @@ export class MediaService {
         window.location.replace(url);
     }
     getErroredOnConversion(conversion: Conversion): boolean {
-        if (conversion.fileSize.includes("0.00")) {
+        if (conversion.fileSize.includes("0.00") && conversion.fileSize.length == 7) {
             return true;
         }
         else return false;
     }
     canPlayVideo(video: any): boolean {
-        if (video.path.includes(".mkv")) return false;
-        else return true;
+        if (video.path.includes(".mkv")) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
     deleteVideo(id: number): Observable<any> {
         const url = globals.MEDIA_URL + '/' + id;

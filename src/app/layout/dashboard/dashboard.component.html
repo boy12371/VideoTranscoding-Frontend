@@ -46,7 +46,7 @@
                     <button (click)="downloadVideo(originalOnProgress.originalId)" type="button" class="btn btn-sm btn-info">Download</button>
                 </div>
                 <div class="card-body">
-                    <div *ngFor="let conversion of originalOnProgress.conversions | async">
+                    <div *ngFor="let conversion of originalOnProgress.conversions">
                         <ul *ngIf="conversion.finished" class="list-group">
                             <li class="list-group-item">
                                 <strong>Conversion -</strong>{{ conversion.name }}

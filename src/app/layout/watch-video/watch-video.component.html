@@ -23,42 +23,21 @@
       </div>
       <div>
         <ul class="list-group">
-          <li class="list-group-item" [class.active]="originalVideo.originalId == currentItemWatching.video.originalId">
+          <li class="list-group-item" [style.cursor]="!canPlay(originalVideo) == true ? 'default' : 'pointer'" [style.color]="!canPlay(originalVideo) == true ? 'red' : null"
+            [class.active]="originalVideo.originalId == currentItemWatching.video.originalId">
             <strong>Original: </strong>
             <a (click)="changeSource(originalVideo.originalId)">{{originalVideo.name}}</a>
           </li>
-          <li *ngFor="let conversion of originalVideo.conversions"  [style.cursor]="getErrored(conversion) == true ? 'default' : 'pointer'" [style.color]="getErrored(conversion) == true ? 'red' : null" [class.active]="conversion.conversionId == currentItemWatching.video.conversionId"
+          <li *ngFor="let conversion of conversions" [style.cursor]=" (getErrored(conversion) || !canPlay(conversion))== true ? 'default' : 'pointer'"
+            [style.color]="(getErrored(conversion) || !canPlay(conversion)) == true ? 'red' : null" [class.active]="conversion.conversionId == currentItemWatching.video.conversionId"
             class="list-group-item">
             <strong>Conversion: </strong>
-            <a  (click)="changeSource(conversion.conversionId)">{{ conversion.name }}</a>
+            <a (click)="changeSource(conversion.conversionId)">{{ conversion.name }}</a>
             <strong>Type: </strong>{{conversion.conversionType}}
           </li>
         </ul>
       </div>
     </div>
   </div>
-  <!--   <div class="col col-sm-6">
-      <div class="card">
-        <div class="card-header">
-          <strong>Conversions</strong>
-        </div>
-        <div class="card-body">
-          Video Selected: NAME
-          <vg-player style="width:50%" (onPlayerReady)="onPlayerReady($event)">
-            <video [vgMedia]="media" #media id="singleVideo" preload="auto" [src]="currentItemConversion.src" type="video/mp4" controls></video>
-          </vg-player>
-        </div>
-        <hr>
-        <div class="card-body">
-          Select conversion:
-          
-          <div class="list-group" >
-           
-            <a href="javascript:void(0)" class="list-group-item">CONVERSION NAME</a>
-          </div>
-        </div>
-      </div>-->
-  <!-- *ngFor="let conversion of original.conversions; let $index = index"-->
-  <!--  <a href="javascript:void(0)" class="list-group-item active"> {{ conversion.name }}</a>-->
 </div>
 <ng4-loading-spinner></ng4-loading-spinner>

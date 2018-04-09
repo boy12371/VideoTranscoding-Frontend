@@ -34,6 +34,7 @@ export class ManageVideosComponent implements OnInit {
       error => {
         if (error.status = 404) {
           this.finished = true;
+          this.originalVideos=[];
           this.noVideos=true;
         }
         console.log(error);

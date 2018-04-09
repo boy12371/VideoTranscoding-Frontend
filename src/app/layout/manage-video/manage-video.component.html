@@ -7,7 +7,7 @@
                 <div class="card-header">
                     <strong>Original: </strong>{{originalVideo.name}}
                 </div>
-                <div class="row card-body" >
+                <div class="row card-body">
                     <div class="col-sm-6">
                         <ul class="list-group">
                             <li class="list-group-item">Size: {{originalVideo.fileSize}}</li>
@@ -20,7 +20,8 @@
                     <div class="col-sm-6">
                         <div class="btn-group-vertical btn-block">
                             <button type="button" class="btn btn-danger">Delete Video</button>
-                            <button [disabled]="!canPlay(originalVideo)" (click)="watchVideo(originalVideo.originalId,originalVideo.originalId)" type="button" class="btn btn-success">Watch Video</button>
+                            <button [disabled]="!canPlay(originalVideo)" (click)="watchVideo(originalVideo.originalId,originalVideo.originalId)" type="button"
+                                class="btn btn-success">Watch Video</button>
                             <button (click)="downloadVideo(originalVideo.originalId)" type="button" class="btn btn-info">Download Video</button>
                         </div>
                     </div>
@@ -30,7 +31,7 @@
         </div>
         <div class="col-lg-6">
             <div class="card mb-3" *ngFor="let conversion of originalVideo.conversions" [style.color]="getErrored(conversion) == true ? 'red' : null">
-                <div class="card-header" >
+                <div class="card-header">
                     <strong>Conversion: </strong>{{conversion.name}}
                     <br>
                     <strong>Type: </strong>{{conversion.conversionType}}
@@ -46,11 +47,19 @@
                             <li *ngIf="!conversion.finished" class="list-group-item">Progress: {{conversion.progress}}</li>
                         </ul>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="btn-group-vertical btn-block">
+                    <div class="col-sm-6" *ngIf="conversion.finished">
+                        <div class="btn-group-vertical btn-block" >
                             <button type="button" class="btn btn-danger">Delete Video</button>
-                            <button [disabled]="getErrored(conversion)" (click)="watchVideo(originalVideo.originalId,conversion.conversionId)" type="button" class="btn btn-success">Watch Video</button>
+                            <button [disabled]="getErrored(conversion) || !canPlay(conversion)" (click)="watchVideo(originalVideo.originalId,conversion.conversionId)"
+                                type="button" class="btn btn-success">Watch Video</button>
                             <button [disabled]="getErrored(conversion)" (click)="downloadVideo(conversion.conversionId)" type="button" class="btn btn-info">Download Video</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-6" *ngIf="!conversion.finished">
+                        <div class="btn-group-vertical btn-block" >
+                            <button [disabled]="!conversion.finished" type="button" class="btn btn-danger">Delete Video</button>
+                            <button [disabled]="!conversion.finished" type="button" class="btn btn-success">Watch Video</button>
+                            <button [disabled]="!conversion.finished" type="button" class="btn btn-info">Download Video</button>
                         </div>
                     </div>
                 </div>
