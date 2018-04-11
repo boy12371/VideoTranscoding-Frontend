@@ -20,7 +20,9 @@ export class UploadVideosComponent implements OnInit {
   typeConversionExpert: string[] = [];
   typeConversionBasic: string[] = [];
   progress: { percentage: number } = { percentage: 0 }
-  videoUploaded:boolean;
+  videoUploaded: boolean;
+  noVideoFile:boolean;
+  fileExists:boolean;
 
   constructor(private uploadService: UploadFileService,
     private mediaService: MediaService,
@@ -60,24 +62,35 @@ export class UploadVideosComponent implements OnInit {
   }
 
   uploadFileExpert(form: FormGroup) {
+    this.noVideoFile = false;
+    this.fileExists=false;
     this.file = this.selectedFiles.item(0);
     this.progress.percentage = 0;
-    this.selectedFiles=undefined;
+    this.selectedFiles = undefined;
     this.uploadService.uploadFileExpert(form, this.file).subscribe(
       event => {
         if (event.type === HttpEventType.UploadProgress) {
           this.progress.percentage = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
           console.log('File is completely uploaded!');
-          this.videoUploaded=true;
+          this.videoUploaded = true;
         }
       },
-      error => console.log(error))
+      error => {
+        console.log(error);
+        if(error.error.code==15010){
+          this.fileExists=true;
+        }
+        else if(error.status == 400)
+          this.noVideoFile = true;
+      })
 
   }
   uploadFileBasic(form: FormGroup) {
+    this.noVideoFile = false;
+    this.fileExists=false;
     this.file = this.selectedFiles.item(0);
-    this.selectedFiles=undefined;
+    this.selectedFiles = undefined;
     this.progress.percentage = 0;
     this.uploadService.uploadFileBasic(form, this.file).subscribe(
       event => {
@@ -85,10 +98,17 @@ export class UploadVideosComponent implements OnInit {
           this.progress.percentage = Math.round(100 * event.loaded / event.total);
         } else if (event instanceof HttpResponse) {
           console.log('File is completely uploaded!');
-          this.videoUploaded=true;
+          this.videoUploaded = true;
         }
       },
-      error => console.log(error))
+      error => {
+        console.log(error);
+        if(error.error.code==15010){
+          this.fileExists=true;
+        }
+        else if(error.status == 400)
+          this.noVideoFile = true;
+      })
   }
   selectedFile(): boolean {
     if (this.selectedFiles == undefined) {
