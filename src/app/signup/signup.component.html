@@ -18,7 +18,7 @@
                     <div class="form-group">
                         <input type="text" class="form-control input-underline input-lg" formControlName="email" placeholder="Email">
                         <div *ngIf="signupForm.controls['email'].invalid && (signupForm.controls['email'].dirty || signupForm.controls['email'].touched)">
-                            <span *ngIf="signupForm.controls['email'].errors.email">
+                            <span  *ngIf="signupForm.controls['email'].errors.email">
                                 Not is a email
                             </span>
                         </div>

@@ -23,16 +23,16 @@
       </div>
       <div>
         <ul class="list-group">
-          <li class="list-group-item" [style.cursor]="!canPlay(originalVideo) == true ? 'default' : 'pointer'" [style.color]="!canPlay(originalVideo) == true ? 'red' : null"
+          <li (click)="changeSource(originalVideo.originalId)" class="list-group-item" [style.cursor]="!canPlay(originalVideo) == true ? 'default' : 'pointer'" [style.color]="!canPlay(originalVideo) == true ? 'red' : null"
             [class.active]="originalVideo.originalId == currentItemWatching.video.originalId">
             <strong>Original: </strong>
-            <a (click)="changeSource(originalVideo.originalId)">{{originalVideo.name}}</a>
+            <a >{{originalVideo.name}}</a>
           </li>
-          <li *ngFor="let conversion of conversions" [style.cursor]=" (getErrored(conversion) || !canPlay(conversion))== true ? 'default' : 'pointer'"
+          <li *ngFor="let conversion of conversions" (click)="changeSource(conversion.conversionId)" [style.cursor]=" (getErrored(conversion) || !canPlay(conversion))== true ? 'default' : 'pointer'"
             [style.color]="(getErrored(conversion) || !canPlay(conversion)) == true ? 'red' : null" [class.active]="conversion.conversionId == currentItemWatching.video.conversionId"
             class="list-group-item">
             <strong>Conversion: </strong>
-            <a (click)="changeSource(conversion.conversionId)">{{ conversion.name }}</a>
+            <a >{{ conversion.name }}</a>
             <strong>Type: </strong>{{conversion.conversionType}}
           </li>
         </ul>

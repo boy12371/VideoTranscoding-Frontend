@@ -9,7 +9,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './shared';
 import { UserService } from './shared/services/user.service'
-import { OriginalService } from './shared/services/original.service'
 import { HttpClientBasicAuth } from './shared/services/httpclientbasicauth.service';
 import { UploadFileService } from './shared/services/upload-file.service';
 import { MediaService } from './shared/services/media.service';
@@ -30,7 +29,7 @@ import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
     ],
     declarations: [AppComponent],
-    providers: [AuthGuard, UserService, HttpClientBasicAuth, OriginalService, MediaService, UploadFileService],
+    providers: [AuthGuard, UserService, HttpClientBasicAuth, MediaService, UploadFileService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

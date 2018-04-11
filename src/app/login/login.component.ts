@@ -37,11 +37,8 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/dashboard']);
                 this.ng4LoadingSpinnerService.hide();
             }, error => {
-                console.log("Estado de error: ")
-                console.log(error)
-                console.log(error.code)
                 if (error.status == 0) {
-                    this.noConnection = true;
+                    this.error_login = true;
                     this.ng4LoadingSpinnerService.hide();
                 }
                 else if (error.status == 401) {

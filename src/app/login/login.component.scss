@@ -11,8 +11,9 @@ $topnav-background-color: #1A2930;
     overflow: auto;
     background: $topnav-background-color;
     text-align: center;
-    color: #fff;
+    color: #F7CE3E;
     padding: 3em;
+    
     .col-lg-4 {
         padding: 0;
     }
@@ -96,4 +97,5 @@ $topnav-background-color: #1A2930;
         border: 2px solid #F7CE3E;
     }
     #videoTranscodingLogo{width: 80%;}
+   
 }
