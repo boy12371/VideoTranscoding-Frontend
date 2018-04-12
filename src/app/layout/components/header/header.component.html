@@ -57,7 +57,7 @@
                 <input type="text" id="nick" formControlName="email" name="email" class="form-control input-underline input-lg" placeholder="{{userLogged.email}}">
             </div>
             <div class="form-group">
-                <input type="password" formControlName="userPassword" id="password" name="password" class="form-control input-underline input-lg"
+                <input type="password" formControlName="hashedPassword" id="password" name="password" class="form-control input-underline input-lg"
                     placeholder="Mandatory Password">
             </div>
             <div class="form-group">
@@ -67,7 +67,7 @@
         </div>
         <div class="modal-footer">
             <button type="submit" class="btn btn-success" [disabled]="editProfile.invalid">Update</button>
-            <button type="button" class="btn btn-secondary" (click)="c('Close click')">Close</button>
+            <button type="button" class="btn btn-danger" (click)="c('Close click')">Close</button>
         </div>
     </form>
 </ng-template>

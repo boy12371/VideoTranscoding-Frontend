@@ -32,9 +32,9 @@ export class UserService {
         var url = globals.USER_REGISTER;
         return this._http.post(url, user);
     }
-    editUser(user: any): Observable<any> {
-
-        return null;
+    editUser(user: any, id: number): Observable<any> {
+        var url = globals.USER_BASEURL + id
+        return this._http.patch(url, user);
     }
     private generateAuthString(username: String, password: String) {
         return 'Basic ' + btoa(username + ':' + password);

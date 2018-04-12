@@ -19,6 +19,21 @@ $topnav-background-color: #1A2930;
     -ms-transition: all 0.2s ease-in-out;
     -o-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
+    a.list-group-item {
+        background: $topnav-background-color;
+        border: 0;
+        border-radius: 0;
+        color: #999;
+        text-decoration: none;
+        outline:0;
+        .fa {
+            margin-right: 10px;
+        }
+    }
+    a:hover {
+        background: darken($topnav-background-color, 5%);
+        color: #F7CE3E;
+    }
     // border-top: 1px solid rgba(255,255,255,0.3);
     .list-group {
         a.list-group-item {
@@ -159,4 +174,24 @@ $topnav-background-color: #1A2930;
 
 a {
     cursor: pointer; 
+}
+.btn-success{
+    background-color:#1A2930;
+    border-color:#1A2930;
+}
+.btn-success:hover{
+    color:#fff
+}
+.btn-danger{
+    background-color:#b82601;
+    border-color:#b82601;
+}
+.btn-danger:hover{
+    color:#fff
+}
+#listItems{
+    color:#999
+}
+#listItems:hover{
+    color:#F7CE3E
 }

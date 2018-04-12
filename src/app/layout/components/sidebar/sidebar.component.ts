@@ -19,6 +19,8 @@ export class SidebarComponent implements OnInit {
     userLogged: User
     modalRef: NgbModalRef;
     editProfile: FormGroup;
+
+    editUser: EditUser;
     constructor(public router: Router, private modalService: NgbModal, private userService: UserService) {
         this.router.events.subscribe(val => {
             if (
@@ -29,24 +31,33 @@ export class SidebarComponent implements OnInit {
                 this.toggleSidebar();
             }
         });
-        this.userLogged = this.userService.getLoggedUser();
 
     }
     ngOnInit() {
+        this.userLogged = this.userService.getLoggedUser();
         this.editProfile = new FormGroup({
-            nick: new FormControl(''),
-            email: new FormControl(''),
-            userPassword: new FormControl('', [
+            nick: new FormControl(this.userLogged.nick, ),
+            email: new FormControl(this.userLogged.email, ),
+            hashedPassword: new FormControl('', [
                 Validators.required,
                 Validators.minLength(8)
             ]),
-            passwordRepeat: new FormControl('', [Validators.required, matchOtherValidator('userPassword')])
+            passwordRepeat: new FormControl('', [Validators.required, matchOtherValidator('hashedPassword')])
         })
     }
 
     onSubmit(form: FormGroup) {
-        console.log("Ha llegado la peticion");
-        this.userService.getLoggedUser();
+        let valuesForm: any = form.value;
+        this.editUser = valuesForm;
+        this.userService.editUser(this.editUser, this.userService.getLoggedUser().userId
+        ).subscribe(
+            result => {
+                console.log(result)
+                this.userService.loginUser(this.editUser.nick,this.editUser.hashedPassword).subscribe();
+                this.userService.setUserLogged(result);;
+                this.ngOnInit();
+            },
+            error => console.log(error))
         this.modalRef.close();
     }
     eventCalled() {
@@ -82,6 +93,7 @@ export class SidebarComponent implements OnInit {
         this.router.navigate(['/login']);
     }
     open(content) {
+        this.ngOnInit();
         this.toggleSidebar();
         this.modalRef = this.modalService.open(content);
         this.modalRef.result.then((result) => {
@@ -101,4 +113,10 @@ export class SidebarComponent implements OnInit {
             return `with: ${reason}`;
         }
     }
+}
+
+export interface EditUser {
+    nick: string;
+    email: string;
+    hashedPassword: string;
 }
