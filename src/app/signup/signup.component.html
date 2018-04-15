@@ -3,7 +3,7 @@
         <div class="col-md-4">
             <img id="videoTranscodingLogo" src="assets/images/VideoTranscoding_white_logo.png" />
             <form role="form" [formGroup]="signupForm" #formDir="ngForm" (ngSubmit)="onSubmit(signupForm)">
-                <div [hidden]="formDir.submitted" class="form-content">
+                <div class="form-content">
                     <div class="form-group">
                         <input type="text" class="form-control input-underline input-lg" formControlName="nick" placeholder="Nick">
                         <div *ngIf="signupForm.controls['nick'].invalid && (signupForm.controls['nick'].dirty || signupForm.controls['nick'].touched)">
@@ -18,7 +18,7 @@
                     <div class="form-group">
                         <input type="text" class="form-control input-underline input-lg" formControlName="email" placeholder="Email">
                         <div *ngIf="signupForm.controls['email'].invalid && (signupForm.controls['email'].dirty || signupForm.controls['email'].touched)">
-                            <span  *ngIf="signupForm.controls['email'].errors.email">
+                            <span *ngIf="signupForm.controls['email'].errors.email">
                                 Not is a email
                             </span>
                         </div>
@@ -51,8 +51,8 @@
                         <strong>You are registered !</strong> Logged in 2 seconds.
                     </div>
                 </div>
+                <button class="btn rounded-btn" [routerLink]="['/login']"> Log in </button>
                 <button class="btn rounded-btn" [disabled]="signupForm.invalid" type="submit"> Register </button>&nbsp;
-                <a class="btn rounded-btn" [routerLink]="['/login']"> Log in </a>
             </form>
         </div>
     </div>
