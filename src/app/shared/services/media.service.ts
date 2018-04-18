@@ -26,8 +26,11 @@ export class MediaService {
         return this._http.get(url);
     }
     downloadById(id: number) {
-        const url = globals.DOWNLOAD_URL + id;
+        const url = globals.MEDIA_URL + '/'+id+'/content?forceSave=true';
         window.location.replace(url);
+    }
+    watchById(id:number):string{
+        return globals.MEDIA_URL +'/'+ id+'/content?forceSave=false';
     }
     getErroredOnConversion(conversion: Conversion): boolean {
         if (conversion.fileSize.includes("0.00") && conversion.fileSize.length == 7) {

@@ -19,7 +19,7 @@ export class ManageVideosComponent implements OnInit {
   isCollapsed = true;
   sum: number;
   finished: boolean;
-  noVideos:boolean;
+  noVideos: boolean;
   constructor(private router: Router, private mediaService: MediaService, private ng4LoadingSpinnerService: Ng4LoadingSpinnerService) {
 
   }
@@ -34,8 +34,8 @@ export class ManageVideosComponent implements OnInit {
       error => {
         if (error.status = 404) {
           this.finished = true;
-          this.originalVideos=[];
-          this.noVideos=true;
+          this.originalVideos = [];
+          this.noVideos = true;
         }
         console.log(error);
         this.ng4LoadingSpinnerService.hide();
@@ -64,9 +64,7 @@ export class ManageVideosComponent implements OnInit {
     }
   }
   goToConversion(originalId: number) {
-    console.log("Navegando a originalId");
     this.router.navigate(['/manage-video/' + originalId]);
-
   }
   watchVideo(idRedirect: number, idWatchRedirect: number) {
     this.router.navigate(['/watch-video/' + idRedirect], { queryParams: { idWatch: idWatchRedirect } });

@@ -70,12 +70,13 @@ export class WatchVideoComponent implements OnInit {
       }
     )
   }
-
   getVideoUrl(video: any) {
     if (this.currentItemWatching.video.conversionId != undefined) {
-      return globals.WATCH_URL + this.currentItemWatching.video.conversionId;
+      return this.mediaService.watchById(this.currentItemWatching.video.conversionId);
     }
-    return globals.WATCH_URL + this.currentItemWatching.video.originalId;
+    else {
+      return this.mediaService.watchById(this.currentItemWatching.video.originalId);
+    }
   }
   changeSource(newConversionId: number): any {
     if (newConversionId != this.originalVideo.originalId) {
