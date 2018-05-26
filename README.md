@@ -58,10 +58,10 @@ The project is finished and ready to deliver to my tutor
   <img src="https://github.com/luiscajl/VideoTranscoding-Frontend/blob/master/screens/dashboard2.png"/>
 </p>
 <p align="center">
-  <img src="https://github.com/luiscajl/VideoTranscoding-Frontend/blob/master/screens/upload.png"/>
+  <img src="https://github.com/luiscajl/VideoTranscoding-Frontend/blob/master/screens/uploadVideos.png"/>
 </p>
 <p align="center">
-  <img src="https://github.com/luiscajl/VideoTranscoding-Frontend/blob/master/screens/manager.png"/>
+  <img src="https://github.com/luiscajl/VideoTranscoding-Frontend/blob/master/screens/manageVideos.png"/>
 </p>
 <p align="center">
   <img src="https://github.com/luiscajl/VideoTranscoding-Frontend/blob/master/screens/player1.png"/>
