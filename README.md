@@ -13,54 +13,60 @@ This application transcode a video that you send on all formats what you want an
 3. Download your video converted when it finished.
 ## Run it:
 1. Install [docker](https://docs.docker.com/engine/installation/) for your machine.
-2. Download [the docker-compose.yml](https://raw.githubusercontent.com/luiscajl/VideoTranscoding/master/docker-compose.yml).
+2. Download [the docker-compose.yml](https://raw.githubusercontent.com/luiscajl/VideoTranscoding-Frontend/master/docker-compose.yml).
 3. Run this command on your terminal on the path of docker-compose.
 ```sh
 sudo docker-compose up 
 ```
-4. Visit [localhost](https://localhost:8443/) on your web browser.
-5. You can navigate to the api documentation and throw the methods. user/pass and admin/pass are the users for loggin by basic auth
-6. Stop docker compose when you finished
+4. Visit [localhost](http://localhost:8877/) on your web browser.
+5. Stop docker compose when you finished
 ```sh
 ctrl+c
 ```
 
 
-## Develop it:
+## Develop it on Frontend ( needs the [backend](https://github.com/luiscajl/VideoTranscoding-Backend/)):
 1. Clone respository:
 ```sh
-git clone https://github.com/luiscajl/VideoTranscoding.git 
+git clone https://github.com/luiscajl/VideoTranscoding-Frontend.git 
 ```
-2. Run this script to install ffmpeg on your mac.
+2. Install [Node](https://nodejs.org/es/download/).
+3. On the folder project do:
 ```sh
-sh /scripts/install_ffmpeg_macosx.sh
+npm i 
 ```
-or this for linux
+4. And:
 ```sh
-sh /scripts/install_ffmpeg_linux.sh
+ng serve 
 ```
-3. Download and install [MySQL-CE](https://dev.mysql.com/downloads/).
-4. Now you can import the project on your ide and start SpringBoot Application or develop the project after change on the application.properties (src/main/resources) the user and password for your mysql configuration.
+5. Visit [http://localhost:4000](http://localhost:4000):
 
 
 The project is finished and ready to deliver to my tutor
 
 ## Screenshots:
 <p align="center">
-  <img src="https://github.com/luiscajl/VideoTranscoding/blob/master/screens/screenIndexF.png"/>
+  <img src="https://github.com/luiscajl/VideoTranscoding-Frontend/blob/master/screens/login.png"/>
 </p>
 <p align="center">
-  <img src="https://github.com/luiscajl/VideoTranscoding/blob/master/screens/screenSucessfully.png"/>
+  <img src="https://github.com/luiscajl/VideoTranscoding-Frontend/blob/master/screens/register.png"/>
 </p>
 <p align="center">
-  <img src="https://github.com/luiscajl/VideoTranscoding/blob/master/screens/screenStatus.png"/>
+  <img src="https://github.com/luiscajl/VideoTranscoding-Frontend/blob/master/screens/dashboard.png"/>
 </p>
 <p align="center">
-  <img src="https://github.com/luiscajl/VideoTranscoding/blob/master/screens/screenMedia.png"/>
+  <img src="https://github.com/luiscajl/VideoTranscoding-Frontend/blob/master/screens/dashboard2.png"/>
 </p>
 <p align="center">
-  <img src="https://github.com/luiscajl/VideoTranscoding/blob/master/screens/screenUser.png"/>
+  <img src="https://github.com/luiscajl/VideoTranscoding-Frontend/blob/master/screens/upload.png"/>
 </p>
 <p align="center">
-  <img src="https://github.com/luiscajl/VideoTranscoding/blob/master/screens/screenConversion.png"/>
+  <img src="https://github.com/luiscajl/VideoTranscoding-Frontend/blob/master/screens/manager.png"/>
 </p>
+<p align="center">
+  <img src="https://github.com/luiscajl/VideoTranscoding-Frontend/blob/master/screens/player1.png"/>
+</p>
+<p align="center">
+  <img src="https://github.com/luiscajl/VideoTranscoding-Frontend/blob/master/screens/player2.png"/>
+</p>
+
